@@ -1,0 +1,17 @@
+{
+  "include": ["src"],
+
+  "compilerOptions": {
+    "outDir": "lib",
+    "declaration": true,
+
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
