@@ -1,3 +1,4 @@
 import Spinner from './Spinner';
+import Tooltip from './Tooltip';
 
-export { Spinner };
+export { Spinner, Tooltip };
