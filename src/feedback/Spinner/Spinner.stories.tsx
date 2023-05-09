@@ -1,8 +1,8 @@
-import { type StoryFn, type Meta } from '@storybook/react';
+import { type Meta, type StoryFn } from '@storybook/react';
 
 import Spinner from './Spinner';
 
-export const Default: StoryFn = () => {
+export const Default: StoryFn<typeof Spinner> = () => {
   return (
     <div style={{ padding: 20 }}>
       <div style={{ width: 20, height: 20 }}>
@@ -14,4 +14,5 @@ export const Default: StoryFn = () => {
 
 export default {
   title: 'Feedback/Spinner',
-} as Meta;
+  component: Spinner,
+} as Meta<typeof Spinner>;
