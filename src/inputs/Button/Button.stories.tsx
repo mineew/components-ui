@@ -1,4 +1,4 @@
-import { type StoryFn, type Meta } from '@storybook/react';
+import { type Meta, type StoryFn } from '@storybook/react';
 
 import Button from './Button';
 
@@ -10,7 +10,7 @@ const H2 = ({ children }: { children: string }) => {
   return <h2 style={{ fontSize: 16, marginBottom: 10 }}>{children}</h2>;
 };
 
-export const Default: StoryFn = () => {
+export const Default: StoryFn<typeof Button> = () => {
   return (
     <div style={{ padding: 20 }}>
       <div style={{ marginBottom: 40 }}>
@@ -69,4 +69,5 @@ export const Default: StoryFn = () => {
 
 export default {
   title: 'Inputs/Button',
-} as Meta;
+  component: Button,
+} as Meta<typeof Button>;
