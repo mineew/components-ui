@@ -20,6 +20,15 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
 
+  rules: {
+    'no-console': 'warn',
+    'no-alert': 'warn',
+    'no-debugger': 'warn',
+
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/consistent-type-exports': 'warn',
+  },
+
   settings: {
     react: {
       version: 'detect',
