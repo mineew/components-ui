@@ -1,6 +1,6 @@
 import {
   type ElementType,
-  type ComponentPropsWithoutRef,
+  type ComponentPropsWithRef,
   type Ref,
   forwardRef,
 } from 'react';
@@ -22,7 +22,7 @@ type InputCustomProps<T extends ElementType> = {
 };
 
 type InputProps<T extends ElementType> = InputCustomProps<T> &
-  Omit<ComponentPropsWithoutRef<T>, keyof InputCustomProps<T>>;
+  Omit<ComponentPropsWithRef<T>, keyof InputCustomProps<T>>;
 
 function Input<T extends ElementType = 'input'>(
   props: InputProps<T>,
