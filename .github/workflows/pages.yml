@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
       - name: Install
         run: npm install
       - name: Build
@@ -22,7 +22,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: github-pages@2
+      name: github-pages@v2
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy
