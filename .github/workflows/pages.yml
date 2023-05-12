@@ -7,13 +7,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout
-    - name: Install
-      run: npm install
-    - name: Build
-      run: npm run storybook:build
+    steps:
+      - name: Checkout
+        uses: actions/checkout
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run storybook:build
 
   deploy:
     runs-on: ubuntu-latest
@@ -24,6 +24,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-  steps:
-    - name: Deploy
-      uses: actions/deploy-pages
+    steps:
+      - name: Deploy
+        uses: actions/deploy-pages
