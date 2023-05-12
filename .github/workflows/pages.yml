@@ -27,3 +27,5 @@ jobs:
     steps:
       - name: Deploy
         uses: actions/deploy-pages@v2
+        with:
+          - artifact_name: storybook-static
