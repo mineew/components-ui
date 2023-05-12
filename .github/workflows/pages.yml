@@ -14,6 +14,11 @@ jobs:
         run: npm install
       - name: Build
         run: npm run storybook:build
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: storybook-static
+          path: ./storybook-static
 
   deploy:
     runs-on: ubuntu-latest
@@ -25,9 +30,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Upload
+      - name: 'Download Artifact'
+        with:
+          name: storybook-static
+      - name: 'Upload Pages'
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./storybook-static
-      - name: Deploy
+      - name: 'Deploy Pages'
         uses: actions/deploy-pages@v2
