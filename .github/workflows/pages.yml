@@ -25,7 +25,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Upload
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./storybook-static
       - name: Deploy
         uses: actions/deploy-pages@v2
-        with:
-          artifact_name: storybook-static
