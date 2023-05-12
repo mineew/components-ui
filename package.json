@@ -10,10 +10,11 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build -o storybook-static",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.(t|j)s?(x)\"",
     "format:check": "prettier --check \"**/*.(t|j)s?(x)\"",
-    "clear": "rimraf lib",
+    "clear": "rimraf lib storybook-static",
     "clear:cache": "rimraf node_modules/.cache",
     "deps:check": "ncu",
     "deps:update": "ncu -ui",
