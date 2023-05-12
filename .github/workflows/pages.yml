@@ -22,8 +22,8 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: github-pages@v2
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy
-        uses: actions/deploy-pages
+        uses: actions/deploy-pages@v2
