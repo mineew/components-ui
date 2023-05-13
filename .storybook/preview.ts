@@ -11,7 +11,7 @@ const preview: Preview = {
 
     options: {
       storySort: {
-        order: ['Inputs', 'Feedback', 'Navigation'],
+        order: ['Inputs', 'Feedback', 'Data Display'],
       },
     },
   },
