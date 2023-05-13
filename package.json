@@ -16,9 +16,11 @@
     "format:check": "prettier --check \"**/*.(t|j)s?(x)\"",
     "clear": "rimraf lib storybook-static",
     "clear:cache": "rimraf node_modules/.cache",
+    "release": "run-s \"release:version -- {1}\" build release:publish --",
+    "release:version": "npm version",
+    "release:publish": "npm publish --access public",
     "deps:check": "ncu",
-    "deps:update": "ncu -ui",
-    "prepare": "npm run build"
+    "deps:update": "ncu -ui"
   },
   "dependencies": {
     "@heroicons/react": "2.0.18",
@@ -56,6 +58,7 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "npm-check-updates": "16.10.12",
+    "npm-run-all": "4.1.5",
     "postcss": "8.4.23",
     "prettier": "2.8.8",
     "rimraf": "5.0.0",
