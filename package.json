@@ -4,6 +4,10 @@
   "description": "React UI Components Library",
   "author": "Alexandr Mineev <mineew.al@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mineew/components-ui.git"
+  },
   "files": [
     "lib"
   ],
@@ -16,8 +20,9 @@
     "format:check": "prettier --check \"**/*.(t|j)s?(x)\"",
     "clear": "rimraf lib storybook-static",
     "clear:cache": "rimraf node_modules/.cache",
-    "release": "run-s \"release:version -- {1}\" build release:publish --",
+    "release": "run-s \"release:version -- {1}\" release:push build release:publish --",
     "release:version": "npm version",
+    "release:push": "git push --follow-tags",
     "release:publish": "npm publish --access public",
     "deps:check": "ncu",
     "deps:update": "ncu -ui"
