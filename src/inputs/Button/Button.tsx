@@ -4,12 +4,19 @@ import classNames from 'classnames';
 import ButtonSpinner from './ButtonSpinner';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  primary?: boolean;
+  theme?: 'default' | 'primary' | 'danger';
   loading?: boolean;
 }
 
 function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
-  const { primary, loading, className, children, ...otherProps } = props;
+  const {
+    theme = 'default',
+    loading,
+    className,
+    children,
+    ...otherProps
+  } = props;
+
   const classes = [];
 
   classes.push('inline-flex', 'items-center');
@@ -17,7 +24,6 @@ function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
   classes.push('border', 'border-2');
   classes.push('font-semibold');
   classes.push('focus:outline', 'outline-2', 'outline-offset-2');
-  classes.push('outline-slate-800');
   classes.push('transition');
 
   classes.push(
@@ -32,13 +38,21 @@ function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
     classes.push('disabled:cursor-not-allowed');
   }
 
-  if (primary) {
+  if (theme === 'primary' || theme === 'danger') {
     classes.push('text-white');
     classes.push('border-transparent');
+  }
+
+  if (theme === 'primary') {
     classes.push('bg-slate-800', 'active:bg-black');
+    classes.push('outline-slate-800');
+  } else if (theme === 'danger') {
+    classes.push('bg-red-600', 'active:bg-red-700');
+    classes.push('outline-red-600');
   } else {
     classes.push('border-slate-800');
     classes.push('hover:bg-slate-50', 'active:bg-slate-100');
+    classes.push('outline-slate-800');
   }
 
   return (

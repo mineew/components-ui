@@ -6,39 +6,36 @@ const H1 = ({ children }: { children: string }) => {
   return <h1 style={{ fontSize: 20, marginBottom: 10 }}>{children}</h1>;
 };
 
-const H2 = ({ children }: { children: string }) => {
-  return <h2 style={{ fontSize: 16, marginBottom: 10 }}>{children}</h2>;
-};
-
 export const Default: StoryFn<typeof Button> = () => {
   return (
     <div style={{ padding: 20 }}>
       <div style={{ marginBottom: 40 }}>
         <H1>Default</H1>
 
-        <div style={{ marginBottom: 10 }}>
-          <Button>Вход</Button>
-        </div>
-
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Button disabled>Вход</Button>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button>Sign In</Button>
+          <Button disabled>Sign In</Button>
         </div>
       </div>
 
       <div style={{ marginBottom: 40 }}>
         <H1>Primary</H1>
 
-        <div style={{ marginBottom: 10 }}>
-          <Button primary>Регистрация</Button>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button theme="primary">Register</Button>
+          <Button theme="primary" disabled>
+            Register
+          </Button>
         </div>
+      </div>
 
-        <H2>Disabled</H2>
+      <div style={{ marginBottom: 40 }}>
+        <H1>Danger</H1>
 
-        <div style={{ marginBottom: 10 }}>
-          <Button primary disabled>
-            Регистрация
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button theme="danger">Delete</Button>
+          <Button theme="danger" disabled>
+            Delete
           </Button>
         </div>
       </div>
@@ -46,20 +43,13 @@ export const Default: StoryFn<typeof Button> = () => {
       <div style={{ marginBottom: 40 }}>
         <H1>Loading</H1>
 
-        <div style={{ marginBottom: 10 }}>
-          <div style={{ display: 'flex', gap: 10 }}>
-            <Button loading>Регистрация</Button>
-            <Button primary loading>
-              Регистрация
-            </Button>
-          </div>
-        </div>
-
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Button primary loading disabled>
-            Регистрация
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button loading>Register</Button>
+          <Button theme="primary" loading>
+            Register
+          </Button>
+          <Button theme="primary" loading disabled>
+            Register
           </Button>
         </div>
       </div>
