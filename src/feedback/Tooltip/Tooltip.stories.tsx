@@ -5,9 +5,9 @@ import Tooltip from './Tooltip';
 
 export const Default: StoryFn<typeof Tooltip> = () => {
   return (
-    <div style={{ padding: 150 }}>
+    <div style={{ padding: 20 }}>
       <Tooltip title="Tooltip Content">
-        <Button>Button</Button>
+        <Button>Over Me</Button>
       </Tooltip>
     </div>
   );
