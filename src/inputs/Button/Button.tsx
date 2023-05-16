@@ -1,15 +1,18 @@
 import { forwardRef, type ButtonHTMLAttributes, type Ref } from 'react';
 import classNames from 'classnames';
 
+import ButtonIcon from './ButtonIcon';
 import ButtonSpinner from './ButtonSpinner';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: JSX.Element;
   theme?: 'default' | 'primary' | 'danger';
   loading?: boolean;
 }
 
 function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
   const {
+    icon,
     theme = 'default',
     loading,
     className,
@@ -61,6 +64,7 @@ function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
       className={classNames(classes, className)}
       {...otherProps}
     >
+      {icon && !loading && <ButtonIcon>{icon}</ButtonIcon>}
       {loading && <ButtonSpinner />}
       {children}
     </button>

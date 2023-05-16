@@ -1,4 +1,9 @@
 import { type Meta, type StoryFn } from '@storybook/react';
+import {
+  ArrowRightOnRectangleIcon,
+  UserPlusIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
 
 import Button from './Button';
 
@@ -44,12 +49,67 @@ export const Default: StoryFn<typeof Button> = () => {
         <H1>Loading</H1>
 
         <div style={{ display: 'flex', gap: 10 }}>
-          <Button loading>Register</Button>
+          <Button loading>Loading</Button>
           <Button theme="primary" loading>
-            Register
+            Loading
+          </Button>
+          <Button theme="danger" loading>
+            Loading
           </Button>
           <Button theme="primary" loading disabled>
+            Loading
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const WithIcon: StoryFn<typeof Button> = () => {
+  return (
+    <div style={{ padding: 20 }}>
+      <div style={{ marginBottom: 40 }}>
+        <H1>Default</H1>
+
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button icon={<ArrowRightOnRectangleIcon />}>Sign In</Button>
+          <Button icon={<ArrowRightOnRectangleIcon />} disabled>
+            Sign In
+          </Button>
+          <Button icon={<ArrowRightOnRectangleIcon />} disabled loading>
+            Sign In
+          </Button>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 40 }}>
+        <H1>Primary</H1>
+
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button icon={<UserPlusIcon />} theme="primary">
             Register
+          </Button>
+          <Button icon={<UserPlusIcon />} theme="primary" disabled>
+            Register
+          </Button>
+          <Button icon={<UserPlusIcon />} theme="primary" disabled loading>
+            Register
+          </Button>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: 40 }}>
+        <H1>Danger</H1>
+
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button icon={<TrashIcon />} theme="danger">
+            Delete
+          </Button>
+          <Button icon={<TrashIcon />} theme="danger" disabled>
+            Delete
+          </Button>
+          <Button icon={<TrashIcon />} theme="danger" disabled loading>
+            Delete
           </Button>
         </div>
       </div>
