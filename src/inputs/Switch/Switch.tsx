@@ -24,7 +24,7 @@ function Switch(props: SwitchProps, ref: Ref<HTMLInputElement>) {
       disabled,
       invalid,
       onChange({ checked }) {
-        onChange?.(!checked);
+        onChange?.(Boolean(checked));
       },
     }),
   );

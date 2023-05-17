@@ -22,7 +22,7 @@ export const Default: StoryFn<typeof Switch> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Switch
-            label="Подписаться на Email-рассылку"
+            label="Enable Email Notifications"
             checked={checked}
             onChange={setChecked}
           />
@@ -31,11 +31,11 @@ export const Default: StoryFn<typeof Switch> = () => {
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
-          <Switch label="Подписаться на Email-рассылку" checked disabled />
+          <Switch label="Enable Email Notifications" checked disabled />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Switch label="Подписаться на Email-рассылку" disabled />
+          <Switch label="Enable Email Notifications" disabled />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export const Default: StoryFn<typeof Switch> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Switch
-            label="Подписаться на Email-рассылку"
+            label="Enable Email Notifications"
             checked={invalidDhecked}
             onChange={setInvalidChecked}
             invalid
@@ -54,16 +54,11 @@ export const Default: StoryFn<typeof Switch> = () => {
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
-          <Switch
-            label="Подписаться на Email-рассылку"
-            checked
-            disabled
-            invalid
-          />
+          <Switch label="Enable Email Notifications" checked disabled invalid />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Switch label="Подписаться на Email-рассылку" disabled invalid />
+          <Switch label="Enable Email Notifications" disabled invalid />
         </div>
       </div>
     </div>

@@ -22,27 +22,27 @@ export const Default: StoryFn<typeof Checkbox> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Checkbox
-            label="Подписаться на Email-рассылку"
+            label="Enable Email Notifications"
             checked={checked}
-            onChange={(checked) => setChecked(!!checked)}
+            onChange={(checked) => setChecked(checked)}
           />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Выбрать все" checked="indeterminate" />
+          <Checkbox label="All Items" checked="indeterminate" />
         </div>
 
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Подписаться на Email-рассылку" checked disabled />
+          <Checkbox label="Enable Email Notifications" checked disabled />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Подписаться на Email-рассылку" disabled />
+          <Checkbox label="Enable Email Notifications" disabled />
         </div>
 
-        <Checkbox label="Выбрать все" checked="indeterminate" disabled />
+        <Checkbox label="All Items" checked="indeterminate" disabled />
       </div>
 
       <div style={{ marginBottom: 40 }}>
@@ -50,7 +50,7 @@ export const Default: StoryFn<typeof Checkbox> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Checkbox
-            label="Подписаться на Email-рассылку"
+            label="Enable Email Notifications"
             checked={invalidDhecked}
             onChange={(checked) => setInvalidChecked(!!checked)}
             invalid
@@ -58,14 +58,14 @@ export const Default: StoryFn<typeof Checkbox> = () => {
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Выбрать все" checked="indeterminate" invalid />
+          <Checkbox label="All Items" checked="indeterminate" invalid />
         </div>
 
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
           <Checkbox
-            label="Подписаться на Email-рассылку"
+            label="Enable Email Notifications"
             checked
             disabled
             invalid
@@ -73,15 +73,10 @@ export const Default: StoryFn<typeof Checkbox> = () => {
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Подписаться на Email-рассылку" disabled invalid />
+          <Checkbox label="Enable Email Notifications" disabled invalid />
         </div>
 
-        <Checkbox
-          label="Выбрать все"
-          checked="indeterminate"
-          disabled
-          invalid
-        />
+        <Checkbox label="All Items" checked="indeterminate" disabled invalid />
       </div>
     </div>
   );
@@ -93,7 +88,7 @@ export const Small: StoryFn<typeof Checkbox> = () => {
   return (
     <div style={{ padding: 20 }}>
       <Checkbox
-        label="Подписаться на Email-рассылку"
+        label="Enable Email Notifications"
         checked={checked}
         onChange={setChecked}
         small
@@ -108,7 +103,7 @@ export const Muted: StoryFn<typeof Checkbox> = () => {
   return (
     <div style={{ padding: 20 }}>
       <Checkbox
-        label="Подписаться на Email-рассылку"
+        label="Enable Email Notifications"
         checked={checked}
         onChange={setChecked}
         small

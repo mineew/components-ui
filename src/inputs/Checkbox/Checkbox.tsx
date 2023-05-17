@@ -22,12 +22,11 @@ function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
   const [state, send] = useMachine(
     checkbox.machine({
       id: useId(),
-      checked: checked === true,
-      indeterminate: checked === 'indeterminate',
+      checked,
       disabled,
       invalid,
       onChange({ checked }) {
-        onChange?.(!checked);
+        onChange?.(Boolean(checked));
       },
     }),
   );
