@@ -17,14 +17,24 @@ type PasswordInputProps = Omit<
   | 'rightButtonIcon'
   | 'rightButtonTooltip'
   | 'onRightButtonClick'
->;
+> & {
+  showPasswordTooltip?: string;
+  hidePasswordTooltip?: string;
+};
 
 function PasswordInput(props: PasswordInputProps, ref: Ref<HTMLInputElement>) {
+  const {
+    showPasswordTooltip = 'Показать пароль',
+    hidePasswordTooltip = 'Скрыть пароль',
+    ...inputProps
+  } = props;
+
   const [type, setType] = useState<HTMLInputTypeAttribute>('password');
   const toggleType = () => setType(type === 'password' ? 'text' : 'password');
 
   const icon = type === 'password' ? <EyeIcon /> : <EyeSlashIcon />;
-  const tooltip = type === 'password' ? 'Показать пароль' : 'Скрыть пароль';
+  const tooltip =
+    type === 'password' ? showPasswordTooltip : hidePasswordTooltip;
 
   return (
     <Input
@@ -34,7 +44,7 @@ function PasswordInput(props: PasswordInputProps, ref: Ref<HTMLInputElement>) {
       rightButtonIcon={icon}
       rightButtonTooltip={tooltip}
       onRightButtonClick={toggleType}
-      {...props}
+      {...inputProps}
     />
   );
 }

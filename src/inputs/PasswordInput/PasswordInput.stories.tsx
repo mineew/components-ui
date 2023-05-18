@@ -5,7 +5,11 @@ import PasswordInput from './PasswordInput';
 export const Default: StoryFn<typeof PasswordInput> = () => {
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
-      <PasswordInput placeholder="введите пароль" />
+      <PasswordInput
+        placeholder="Password"
+        showPasswordTooltip="Show Password"
+        hidePasswordTooltip="Hide Password"
+      />
     </div>
   );
 };

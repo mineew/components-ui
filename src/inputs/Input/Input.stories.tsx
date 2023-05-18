@@ -2,7 +2,7 @@ import { type Meta, type StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
   UserCircleIcon,
-  BackspaceIcon,
+  ShieldExclamationIcon,
   AdjustmentsHorizontalIcon,
 } from '@heroicons/react/24/outline';
 
@@ -23,17 +23,17 @@ export const Default: StoryFn<typeof Input> = () => {
         <H1>Default</H1>
 
         <div style={{ marginBottom: 10 }}>
-          <Input placeholder="введите фамилию" />
+          <Input placeholder="Last Name" />
         </div>
 
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
-          <Input placeholder="введите фамилию" disabled />
+          <Input placeholder="Last Name" disabled />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Input value="Иван Иванов" disabled />
+          <Input value="Archibald Joseph Cronin" disabled />
         </div>
       </div>
 
@@ -41,17 +41,17 @@ export const Default: StoryFn<typeof Input> = () => {
         <H1>Invalid</H1>
 
         <div style={{ marginBottom: 10 }}>
-          <Input placeholder="введите фамилию" invalid />
+          <Input placeholder="Last Name" invalid />
         </div>
 
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
-          <Input placeholder="введите фамилию" disabled invalid />
+          <Input placeholder="Last Name" disabled invalid />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Input value="Иван Иванов" disabled invalid />
+          <Input value="Archibald Joseph Cronin" disabled invalid />
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ export const Default: StoryFn<typeof Input> = () => {
 
 export const WithIcons: StoryFn<typeof Input> = () => {
   const leftIcon = <UserCircleIcon />;
-  const rightIcon = <BackspaceIcon />;
+  const rightIcon = <ShieldExclamationIcon />;
 
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
@@ -69,7 +69,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
           />
@@ -79,7 +79,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             disabled
@@ -88,7 +88,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            value="Иван Иванов"
+            value="Archibald Joseph Cronin"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             disabled
@@ -101,7 +101,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             invalid
@@ -112,7 +112,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             disabled
@@ -122,7 +122,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            value="Иван Иванов"
+            value="Archibald Joseph Cronin"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             disabled
@@ -136,7 +136,7 @@ export const WithIcons: StoryFn<typeof Input> = () => {
 
 export const WithButton: StoryFn<typeof Input> = () => {
   const rightButtonIcon = <AdjustmentsHorizontalIcon />;
-  const rightButtonTooltip = 'Настройки';
+  const rightButtonTooltip = 'Settings';
   const onRightButtonClick = action('Click');
 
   return (
@@ -146,7 +146,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -157,7 +157,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -167,7 +167,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            value="Иван Иванов"
+            value="Archibald Joseph Cronin"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -181,7 +181,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -193,7 +193,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            placeholder="введите фамилию"
+            placeholder="Last Name"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -204,7 +204,7 @@ export const WithButton: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input
-            value="Иван Иванов"
+            value="Archibald Joseph Cronin"
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
@@ -225,10 +225,10 @@ export const AsSelect: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select">
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
 
@@ -236,19 +236,19 @@ export const AsSelect: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select" disabled>
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select" value={2} disabled>
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
       </div>
@@ -258,10 +258,10 @@ export const AsSelect: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select" invalid>
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
 
@@ -269,19 +269,19 @@ export const AsSelect: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select" invalid disabled>
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
 
         <div style={{ marginBottom: 10 }}>
           <Input as="select" value={2} invalid disabled>
-            <option value={0}>-- Выберите цвет --</option>
-            <option value={1}>Красный</option>
-            <option value={2}>Зеленый</option>
-            <option value={3}>Синий</option>
+            <option value={0}>-- Select a color --</option>
+            <option value={1}>Red</option>
+            <option value={2}>Green</option>
+            <option value={3}>Blue</option>
           </Input>
         </div>
       </div>
