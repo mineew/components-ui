@@ -9,7 +9,7 @@ function ErrorReloadableTitle(props: ErrorReloadableTitleProps) {
   const { children } = props;
   const classes = [];
 
-  classes.push('text-xl');
+  classes.push('text-xl', 'mb-2');
 
   return <div className={classNames(classes)}>{children}</div>;
 }
