@@ -23,6 +23,8 @@ function Tooltip(props: TooltipProps) {
   classes.push('text-center', 'whitespace-pre-line');
   classes.push('shadow-sm', 'shadow-slate-200');
 
+  if (!title) return children;
+
   return (
     <>
       <span
