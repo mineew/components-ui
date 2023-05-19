@@ -29,6 +29,13 @@ module.exports = {
     '@typescript-eslint/consistent-type-exports': 'warn',
   },
 
+  overrides: [
+    {
+      files: ['src/**/*.stories.tsx'],
+      rules: { 'react/prop-types': 'off' },
+    },
+  ],
+
   settings: {
     react: {
       version: 'detect',

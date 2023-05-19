@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import Tooltip from '../Tooltip/Tooltip';
 
 interface ErrorClosableCloseButtonProps {
+  tooltip?: string;
   onClick: () => void;
 }
 
 function ErrorClosableCloseButton(props: ErrorClosableCloseButtonProps) {
-  const { onClick } = props;
+  const { tooltip = 'Закрыть', onClick } = props;
 
   const buttonClasses = [];
   const positionClasses = [];
@@ -23,7 +24,7 @@ function ErrorClosableCloseButton(props: ErrorClosableCloseButtonProps) {
   positionClasses.push('absolute', 'top-2', 'right-2');
 
   return (
-    <Tooltip className={classNames(positionClasses)} title="Закрыть">
+    <Tooltip className={classNames(positionClasses)} title={tooltip}>
       <button
         className={classNames(buttonClasses)}
         type="button"
