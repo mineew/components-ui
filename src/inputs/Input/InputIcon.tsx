@@ -3,12 +3,13 @@ import classNames from 'classnames';
 interface InputIconProps {
   type: 'left' | 'right';
   children?: JSX.Element;
+  active?: boolean;
   disabled?: boolean;
   invalid?: boolean;
 }
 
 function InputIcon(props: InputIconProps) {
-  const { type, children, disabled, invalid } = props;
+  const { type, children, active, disabled, invalid } = props;
   const valid = !invalid;
 
   const classes = [];
@@ -26,6 +27,7 @@ function InputIcon(props: InputIconProps) {
       classes.push('text-slate-400');
       classes.push('group-hover:text-slate-600');
       classes.push('group-focus-within:!text-slate-800');
+      if (active) classes.push('text-slate-800');
     } else {
       classes.push('text-red-600');
     }

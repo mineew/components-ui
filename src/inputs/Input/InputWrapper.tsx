@@ -2,13 +2,14 @@ import { type ReactNode } from 'react';
 import classNames from 'classnames';
 
 interface InputWrapperProps {
+  active?: boolean;
   disabled?: boolean;
   invalid?: boolean;
   children: ReactNode;
 }
 
 function InputWrapper(props: InputWrapperProps) {
-  const { disabled, invalid, children } = props;
+  const { active, disabled, invalid, children } = props;
   const classes = [];
 
   classes.push('relative', 'group');
@@ -17,6 +18,7 @@ function InputWrapper(props: InputWrapperProps) {
   classes.push('transition');
 
   classes.push('focus-within:ring-4');
+  if (!disabled && active) classes.push('ring-4');
 
   if (invalid) {
     classes.push(!disabled ? 'border-red-600' : '');
@@ -25,6 +27,7 @@ function InputWrapper(props: InputWrapperProps) {
     classes.push(!disabled ? 'border-slate-300' : '');
     classes.push(!disabled ? 'hover:border-slate-600' : '');
     classes.push(!disabled ? 'focus-within:!border-slate-800' : '');
+    if (!disabled && active) classes.push('border-slate-800');
     classes.push('ring-slate-300');
   }
 

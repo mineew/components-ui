@@ -13,6 +13,7 @@ import InputButton from './InputButton';
 
 type InputCustomProps<T extends ElementType> = {
   as?: T;
+  active?: boolean;
   invalid?: boolean;
   leftIcon?: JSX.Element;
   rightIcon?: JSX.Element;
@@ -30,6 +31,7 @@ function Input<T extends ElementType = 'input'>(
 ) {
   const {
     as = 'input',
+    active = false,
     invalid = false,
     leftIcon,
     rightIcon,
@@ -68,8 +70,13 @@ function Input<T extends ElementType = 'input'>(
   const Element = as;
 
   return (
-    <InputWrapper disabled={disabled} invalid={invalid}>
-      <InputIcon type="left" disabled={disabled} invalid={invalid}>
+    <InputWrapper active={active} disabled={disabled} invalid={invalid}>
+      <InputIcon
+        type="left"
+        active={active}
+        disabled={disabled}
+        invalid={invalid}
+      >
         {leftIcon}
       </InputIcon>
 
@@ -80,13 +87,19 @@ function Input<T extends ElementType = 'input'>(
         {...otherProps}
       />
 
-      <InputIcon type="right" disabled={disabled} invalid={invalid}>
+      <InputIcon
+        type="right"
+        active={active}
+        disabled={disabled}
+        invalid={invalid}
+      >
         {rightIcon || (as === 'select' ? <ChevronDownIcon /> : undefined)}
       </InputIcon>
 
       {!rightIcon && (
         <InputButton
           tooltip={rightButtonTooltip}
+          active={active}
           disabled={disabled}
           onClick={onRightButtonClick}
         >

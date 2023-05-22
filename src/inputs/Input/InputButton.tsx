@@ -4,13 +4,14 @@ import Tooltip from '../../feedback/Tooltip/Tooltip';
 
 interface InputButtonProps {
   tooltip?: string;
+  active?: boolean;
   disabled?: boolean;
   onClick?: () => void;
   children?: JSX.Element;
 }
 
 function InputButton(props: InputButtonProps) {
-  const { tooltip, disabled, onClick, children } = props;
+  const { tooltip, active, disabled, onClick, children } = props;
 
   const wrapperClasses = [];
   const buttonClasses = [];
@@ -31,6 +32,7 @@ function InputButton(props: InputButtonProps) {
   buttonClasses.push('focus:outline', 'outline-2', 'outline-slate-800');
   buttonClasses.push('focus:text-slate-800');
   buttonClasses.push('group-focus-within:!text-slate-800');
+  if (!disabled && active) buttonClasses.push('text-slate-800');
 
   buttonClasses.push('disabled:cursor-not-allowed');
   buttonClasses.push('disabled:text-slate-400');

@@ -26,6 +26,12 @@ export const Default: StoryFn<typeof Input> = () => {
           <Input placeholder="Last Name" />
         </div>
 
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input placeholder="Last Name" active />
+        </div>
+
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
@@ -42,6 +48,12 @@ export const Default: StoryFn<typeof Input> = () => {
 
         <div style={{ marginBottom: 10 }}>
           <Input placeholder="Last Name" invalid />
+        </div>
+
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input placeholder="Last Name" active invalid />
         </div>
 
         <H2>Disabled</H2>
@@ -75,6 +87,17 @@ export const WithIcons: StoryFn<typeof Input> = () => {
           />
         </div>
 
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            placeholder="Last Name"
+            leftIcon={leftIcon}
+            rightIcon={rightIcon}
+            active
+          />
+        </div>
+
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
@@ -104,6 +127,18 @@ export const WithIcons: StoryFn<typeof Input> = () => {
             placeholder="Last Name"
             leftIcon={leftIcon}
             rightIcon={rightIcon}
+            invalid
+          />
+        </div>
+
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            placeholder="Last Name"
+            leftIcon={leftIcon}
+            rightIcon={rightIcon}
+            active
             invalid
           />
         </div>
@@ -153,6 +188,18 @@ export const WithButton: StoryFn<typeof Input> = () => {
           />
         </div>
 
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            placeholder="Last Name"
+            rightButtonIcon={rightButtonIcon}
+            rightButtonTooltip={rightButtonTooltip}
+            onRightButtonClick={onRightButtonClick}
+            active
+          />
+        </div>
+
         <H2>Disabled</H2>
 
         <div style={{ marginBottom: 10 }}>
@@ -185,6 +232,19 @@ export const WithButton: StoryFn<typeof Input> = () => {
             rightButtonIcon={rightButtonIcon}
             rightButtonTooltip={rightButtonTooltip}
             onRightButtonClick={onRightButtonClick}
+            invalid
+          />
+        </div>
+
+        <H2>Active</H2>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            placeholder="Last Name"
+            rightButtonIcon={rightButtonIcon}
+            rightButtonTooltip={rightButtonTooltip}
+            onRightButtonClick={onRightButtonClick}
+            active
             invalid
           />
         </div>
