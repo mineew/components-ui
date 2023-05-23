@@ -1,8 +1,4 @@
-import {
-  DropdownMenu,
-  DropdownMenuList,
-  DropdownMenuItem,
-} from './DropdownMenu';
+import * as DropdownMenu from './DropdownMenu';
 import ErrorClosable from './ErrorClosable';
 import ErrorReloadable from './ErrorReloadable';
 import Skeleton from './Skeleton';
@@ -11,8 +7,6 @@ import Tooltip from './Tooltip';
 
 export {
   DropdownMenu,
-  DropdownMenuList,
-  DropdownMenuItem,
   ErrorClosable,
   ErrorReloadable,
   Skeleton,

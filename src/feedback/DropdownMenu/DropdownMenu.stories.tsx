@@ -1,77 +1,75 @@
 import { type Meta, type StoryFn } from '@storybook/react';
 
-import DropdownMenu from './DropdownMenu';
-import DropdownMenuGroup from './DropdownMenuGroup';
-import DropdownMenuList from './DropdownMenuList';
-import DropdownMenuItem from './DropdownMenuItem';
+import * as DropdownMenu from './';
 
-export const Default: StoryFn<typeof DropdownMenu> = () => {
+export const Default: StoryFn = () => {
   return (
     <div style={{ padding: 20, width: 300 }}>
-      <DropdownMenu>
-        <DropdownMenuList>
-          <DropdownMenuItem>Slate</DropdownMenuItem>
-          <DropdownMenuItem>Gray</DropdownMenuItem>
-          <DropdownMenuItem>Zinc</DropdownMenuItem>
-          <DropdownMenuItem>Neutral</DropdownMenuItem>
-          <DropdownMenuItem>Stone</DropdownMenuItem>
-          <DropdownMenuItem>Red</DropdownMenuItem>
-          <DropdownMenuItem active>Orange</DropdownMenuItem>
-          <DropdownMenuItem>Amber</DropdownMenuItem>
-          <DropdownMenuItem>Yellow</DropdownMenuItem>
-          <DropdownMenuItem selected disabled>
+      <DropdownMenu.Menu>
+        <DropdownMenu.List>
+          <DropdownMenu.Item>Slate</DropdownMenu.Item>
+          <DropdownMenu.Item>Gray</DropdownMenu.Item>
+          <DropdownMenu.Item>Zinc</DropdownMenu.Item>
+          <DropdownMenu.Item>Neutral</DropdownMenu.Item>
+          <DropdownMenu.Item>Stone</DropdownMenu.Item>
+          <DropdownMenu.Item>Red</DropdownMenu.Item>
+          <DropdownMenu.Item active>Orange</DropdownMenu.Item>
+          <DropdownMenu.Item>Amber</DropdownMenu.Item>
+          <DropdownMenu.Item>Yellow</DropdownMenu.Item>
+          <DropdownMenu.Item selected disabled>
             Lime
-          </DropdownMenuItem>
-          <DropdownMenuItem disabled>Green</DropdownMenuItem>
-          <DropdownMenuItem disabled>Emerald</DropdownMenuItem>
-          <DropdownMenuItem>Teal</DropdownMenuItem>
-          <DropdownMenuItem>Cyan</DropdownMenuItem>
-          <DropdownMenuItem>Sky</DropdownMenuItem>
-          <DropdownMenuItem>Blue</DropdownMenuItem>
-          <DropdownMenuItem selected>Indigo</DropdownMenuItem>
-          <DropdownMenuItem>Violet</DropdownMenuItem>
-          <DropdownMenuItem>Purple</DropdownMenuItem>
-          <DropdownMenuItem>Fuchsia</DropdownMenuItem>
-          <DropdownMenuItem>Pink</DropdownMenuItem>
-          <DropdownMenuItem>Rose</DropdownMenuItem>
-        </DropdownMenuList>
-      </DropdownMenu>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item disabled>Green</DropdownMenu.Item>
+          <DropdownMenu.Item disabled>Emerald</DropdownMenu.Item>
+          <DropdownMenu.Item>Teal</DropdownMenu.Item>
+          <DropdownMenu.Item>Cyan</DropdownMenu.Item>
+          <DropdownMenu.Item>Sky</DropdownMenu.Item>
+          <DropdownMenu.Item>Blue</DropdownMenu.Item>
+          <DropdownMenu.Item selected>Indigo</DropdownMenu.Item>
+          <DropdownMenu.Item>Violet</DropdownMenu.Item>
+          <DropdownMenu.Item>Purple</DropdownMenu.Item>
+          <DropdownMenu.Item>Fuchsia</DropdownMenu.Item>
+          <DropdownMenu.Item>Pink</DropdownMenu.Item>
+          <DropdownMenu.Item>Rose</DropdownMenu.Item>
+        </DropdownMenu.List>
+      </DropdownMenu.Menu>
     </div>
   );
 };
 
-export const WithGroups: StoryFn<typeof DropdownMenu> = () => {
+export const WithGroups: StoryFn = () => {
   return (
     <div style={{ padding: 20, width: 300 }}>
-      <DropdownMenu>
-        <DropdownMenuGroup>Haruki Murakami</DropdownMenuGroup>
-        <DropdownMenuList>
-          <DropdownMenuItem>Hear the Wind Sing, 1979</DropdownMenuItem>
-          <DropdownMenuItem selected>A Wild Sheep Chase, 1982</DropdownMenuItem>
-          <DropdownMenuItem>Norwegian Wood, 1987</DropdownMenuItem>
-        </DropdownMenuList>
+      <DropdownMenu.Menu>
+        <DropdownMenu.Group>Haruki Murakami</DropdownMenu.Group>
+        <DropdownMenu.List>
+          <DropdownMenu.Item>Hear the Wind Sing, 1979</DropdownMenu.Item>
+          <DropdownMenu.Item selected>
+            A Wild Sheep Chase, 1982
+          </DropdownMenu.Item>
+          <DropdownMenu.Item>Norwegian Wood, 1987</DropdownMenu.Item>
+        </DropdownMenu.List>
 
-        <DropdownMenuGroup>Ernest Hemingway</DropdownMenuGroup>
-        <DropdownMenuList>
-          <DropdownMenuItem>A Farewell to Arms, 1929</DropdownMenuItem>
-          <DropdownMenuItem active>
+        <DropdownMenu.Group>Ernest Hemingway</DropdownMenu.Group>
+        <DropdownMenu.List>
+          <DropdownMenu.Item>A Farewell to Arms, 1929</DropdownMenu.Item>
+          <DropdownMenu.Item active>
             For Whom the Bell Tolls, 1940
-          </DropdownMenuItem>
-          <DropdownMenuItem>The Old Man and the Sea, 1952</DropdownMenuItem>
-        </DropdownMenuList>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item>The Old Man and the Sea, 1952</DropdownMenu.Item>
+        </DropdownMenu.List>
 
-        <DropdownMenuGroup>A. J. Cronin</DropdownMenuGroup>
-        <DropdownMenuList>
-          <DropdownMenuItem>Hatter&apos;s Castle, 1931</DropdownMenuItem>
-          <DropdownMenuItem>The Stars Look Down, 1935</DropdownMenuItem>
-          <DropdownMenuItem>The Citadel, 1937</DropdownMenuItem>
-        </DropdownMenuList>
-      </DropdownMenu>
+        <DropdownMenu.Group>A. J. Cronin</DropdownMenu.Group>
+        <DropdownMenu.List>
+          <DropdownMenu.Item>Hatter&apos;s Castle, 1931</DropdownMenu.Item>
+          <DropdownMenu.Item>The Stars Look Down, 1935</DropdownMenu.Item>
+          <DropdownMenu.Item>The Citadel, 1937</DropdownMenu.Item>
+        </DropdownMenu.List>
+      </DropdownMenu.Menu>
     </div>
   );
 };
 
 export default {
   title: 'Feedback/DropdownMenu',
-  component: DropdownMenu,
-} as Meta<typeof DropdownMenu>;
+} as Meta;

@@ -1,14 +1,6 @@
-import DropdownMenu from './DropdownMenu';
-import DropdownMenuGroup from './DropdownMenuGroup';
-import DropdownMenuList from './DropdownMenuList';
-import DropdownMenuItem from './DropdownMenuItem';
+import Menu from './DropdownMenu';
+import Group from './DropdownMenuGroup';
+import List from './DropdownMenuList';
+import Item from './DropdownMenuItem';
 
-const Dropdown = {
-  Menu: DropdownMenu,
-  Group: DropdownMenuGroup,
-  List: DropdownMenuList,
-  Item: DropdownMenuItem,
-};
-
-export default Dropdown;
-export { DropdownMenu, DropdownMenuGroup, DropdownMenuList, DropdownMenuItem };
+export { Menu, Group, List, Item };
