@@ -1,20 +1,26 @@
-import { forwardRef, type Ref, type HTMLAttributes } from 'react';
+import { forwardRef, type Ref, type LabelHTMLAttributes } from 'react';
 import classNames from 'classnames';
 
 function DropdownMenuGroup(
-  props: HTMLAttributes<HTMLDivElement>,
-  ref: Ref<HTMLDivElement>,
+  props: LabelHTMLAttributes<HTMLLabelElement>,
+  ref: Ref<HTMLLabelElement>,
 ) {
-  const { className, ...otherProps } = props;
+  const { className, htmlFor = '', ...otherProps } = props;
   const classes = [];
 
+  classes.push('block');
   classes.push('px-3', 'pt-3');
   classes.push('font-bold', 'text-slate-400', 'text-xs', 'uppercase');
   classes.push('select-none');
   classes.push('focus:outline-none');
 
   return (
-    <div ref={ref} className={classNames(classes, className)} {...otherProps} />
+    <label
+      ref={ref}
+      className={classNames(classes, className)}
+      htmlFor={htmlFor}
+      {...otherProps}
+    />
   );
 }
 
