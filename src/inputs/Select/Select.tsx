@@ -13,6 +13,7 @@ import Input from '../Input';
 
 import SelectPlaceholder from './SelectPlaceholder';
 import SelectChevron from './SelectChevron';
+import buildSelectGroups from './buildSelectGroups';
 
 type SelectButtonProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -76,21 +77,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
   );
 
   const api = select.connect(state, send, normalizeProps);
-
-  const groups: string[] = [];
-  options.forEach((option) => {
-    const group = getOptionGroup?.(option);
-
-    if (group?.trim() && !groups.includes(group)) {
-      groups.push(group.trim());
-    }
-  });
-
-  if (groupSort) {
-    groups.sort((a, b) => groupSort.indexOf(a) - groupSort.indexOf(b));
-  }
-
-  groups.unshift('');
+  const groups = buildSelectGroups(options, getOptionGroup, groupSort);
 
   const menu = (
     <DropdownMenu.Menu {...api.contentProps}>
