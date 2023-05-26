@@ -11,7 +11,7 @@ interface CheckboxControlProps extends HTMLAttributes<HTMLDivElement> {
   small?: boolean;
 }
 
-const CheckboxControl = (props: CheckboxControlProps) => {
+function CheckboxControl(props: CheckboxControlProps) {
   const {
     checked,
     focused,
@@ -62,6 +62,6 @@ const CheckboxControl = (props: CheckboxControlProps) => {
       <CheckboxIcon checked={checked} disabled={disabled} small={small} />
     </div>
   );
-};
+}
 
 export default CheckboxControl;
