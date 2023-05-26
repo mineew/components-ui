@@ -33,7 +33,7 @@ function CheckboxLabel(props: CheckboxLabelProps) {
 
   if (invalid) {
     classes.push('text-red-600');
-  } else if (muted) {
+  } else if (muted && !disabled) {
     classes.push('text-slate-600');
   }
 
