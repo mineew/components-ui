@@ -1,4 +1,4 @@
-import { type ReactNode, type Ref, forwardRef, useId } from 'react';
+import { type ReactNode, type Ref, forwardRef, useId, useMemo } from 'react';
 import { useMachine, normalizeProps } from '@zag-js/react';
 import * as checkbox from '@zag-js/checkbox';
 import classNames from 'classnames';
@@ -19,17 +19,19 @@ interface CheckboxProps {
 function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
   const { label, checked, onChange, disabled, invalid, small, muted } = props;
 
-  const [state, send] = useMachine(
-    checkbox.machine({
-      id: useId(),
-      checked,
-      disabled,
-      invalid,
-      onChange({ checked }) {
-        onChange?.(Boolean(checked));
-      },
-    }),
-  );
+  const [state, send] = useMachine(checkbox.machine({ id: useId() }), {
+    context: useMemo(
+      () => ({
+        checked,
+        disabled,
+        invalid,
+        onChange({ checked }) {
+          onChange?.(Boolean(checked));
+        },
+      }),
+      [checked, disabled, invalid, onChange],
+    ),
+  });
 
   const api = checkbox.connect(state, send, normalizeProps);
 

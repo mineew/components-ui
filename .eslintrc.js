@@ -33,7 +33,10 @@ module.exports = {
   overrides: [
     {
       files: ['src/**/*.stories.tsx'],
-      rules: { 'react/prop-types': 'off' },
+      rules: {
+        'react/prop-types': 'off',
+        '@typescript-eslint/no-misused-promises': 'off',
+      },
     },
   ],
 

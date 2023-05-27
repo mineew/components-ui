@@ -1,114 +1,78 @@
 import { type Meta, type StoryFn } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 
+import Button from '../Button';
 import Checkbox from './Checkbox';
 
-const H1 = ({ children }: { children: string }) => {
-  return <h1 style={{ fontSize: 20, marginBottom: 10 }}>{children}</h1>;
-};
-
-const H2 = ({ children }: { children: string }) => {
-  return <h2 style={{ fontSize: 16, marginBottom: 10 }}>{children}</h2>;
-};
-
-export const Default: StoryFn<typeof Checkbox> = () => {
+export const Default: StoryFn<typeof Checkbox> = ({
+  label,
+  disabled,
+  invalid,
+  small,
+  muted,
+}) => {
   const [checked, setChecked] = useState(false);
-  const [invalidDhecked, setInvalidChecked] = useState(false);
 
   return (
     <div style={{ padding: 20 }}>
-      <div style={{ marginBottom: 40 }}>
-        <H1>Default</H1>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox
-            label="Enable Email Notifications"
-            checked={checked}
-            onChange={(checked) => setChecked(checked)}
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox label="All Items" checked="indeterminate" />
-        </div>
-
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Enable Email Notifications" checked disabled />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Enable Email Notifications" disabled />
-        </div>
-
-        <Checkbox label="All Items" checked="indeterminate" disabled />
+      <div style={{ marginBottom: 10 }}>
+        <Checkbox
+          label={label}
+          checked={checked}
+          onChange={setChecked}
+          disabled={disabled}
+          invalid={invalid}
+          small={small}
+          muted={muted}
+        />
       </div>
 
-      <div style={{ marginBottom: 40 }}>
-        <H1>Invalid</H1>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox
-            label="Enable Email Notifications"
-            checked={invalidDhecked}
-            onChange={(checked) => setInvalidChecked(!!checked)}
-            invalid
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox label="All Items" checked="indeterminate" invalid />
-        </div>
-
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox
-            label="Enable Email Notifications"
-            checked
-            disabled
-            invalid
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Checkbox label="Enable Email Notifications" disabled invalid />
-        </div>
-
-        <Checkbox label="All Items" checked="indeterminate" disabled invalid />
+      <div style={{ marginBottom: 10 }}>
+        <Checkbox
+          label={label}
+          checked="indeterminate"
+          disabled={disabled}
+          invalid={invalid}
+          small={small}
+          muted={muted}
+        />
       </div>
     </div>
   );
 };
 
-export const Small: StoryFn<typeof Checkbox> = () => {
-  const [checked, setChecked] = useState(false);
+export const ReactHookForm = () => {
+  type FormValues = { checkbox: boolean };
+  const { control, setValue, handleSubmit } = useForm<FormValues>();
 
   return (
     <div style={{ padding: 20 }}>
-      <Checkbox
-        label="Enable Email Notifications"
-        checked={checked}
-        onChange={setChecked}
-        small
-      />
-    </div>
-  );
-};
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
+        <Controller
+          control={control}
+          name="checkbox"
+          rules={{ required: true }}
+          render={({ field, fieldState }) => (
+            <Checkbox
+              ref={field.ref}
+              label="Required Checkbox Field"
+              checked={field.value}
+              onChange={(checked) => {
+                setValue('checkbox', checked, { shouldValidate: true });
+              }}
+              invalid={fieldState.invalid}
+            />
+          )}
+        />
 
-export const Muted: StoryFn<typeof Checkbox> = () => {
-  const [checked, setChecked] = useState(false);
-
-  return (
-    <div style={{ padding: 20 }}>
-      <Checkbox
-        label="Enable Email Notifications"
-        checked={checked}
-        onChange={setChecked}
-        small
-        muted
-      />
+        <div style={{ marginTop: 10 }}>
+          <Button type="submit" theme="primary">
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };
@@ -116,4 +80,11 @@ export const Muted: StoryFn<typeof Checkbox> = () => {
 export default {
   title: 'Inputs/Checkbox',
   component: Checkbox,
+  args: {
+    label: 'Enable Email Notifications',
+    disabled: false,
+    invalid: false,
+    small: false,
+    muted: false,
+  },
 } as Meta<typeof Checkbox>;
