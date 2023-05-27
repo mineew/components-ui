@@ -54,13 +54,15 @@ export const ReactHookForm = () => {
           control={control}
           name="checkbox"
           rules={{ required: true }}
-          render={({ field, fieldState }) => (
+          render={({ field, fieldState, formState }) => (
             <Checkbox
               ref={field.ref}
               label="Required Checkbox Field"
               checked={field.value}
               onChange={(checked) => {
-                setValue('checkbox', checked, { shouldValidate: true });
+                setValue('checkbox', checked, {
+                  shouldValidate: formState.isSubmitted,
+                });
               }}
               invalid={fieldState.invalid}
             />
