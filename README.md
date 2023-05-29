@@ -21,7 +21,7 @@ module.exports = {
 
 ## Documentation
 
-There is no documentation because I don't think anyone can be
+There is no documentation as such because I don't think anyone can be
 interested in this library except myself.
 
 But you can see examples in 📚 [Storybook](https://mineew.github.io/components-ui/).
