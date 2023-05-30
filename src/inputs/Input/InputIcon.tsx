@@ -2,15 +2,15 @@ import classNames from 'classnames';
 
 interface InputIconProps {
   type: 'left' | 'right';
-  children?: JSX.Element;
   active?: boolean;
   disabled?: boolean;
   invalid?: boolean;
+  children?: JSX.Element;
 }
 
 function InputIcon(props: InputIconProps) {
-  const { type, children, active, disabled, invalid } = props;
-  const valid = !invalid;
+  const { type, active, disabled, invalid, children } = props;
+  if (!children) return null;
 
   const classes = [];
 
@@ -23,7 +23,7 @@ function InputIcon(props: InputIconProps) {
   if (disabled) {
     classes.push('text-slate-400');
   } else {
-    if (valid) {
+    if (!invalid) {
       classes.push('text-slate-400');
       classes.push('group-hover:text-slate-600');
       classes.push('group-focus-within:!text-slate-800');
@@ -38,8 +38,6 @@ function InputIcon(props: InputIconProps) {
   } else {
     classes.push('right-2');
   }
-
-  if (!children) return null;
 
   return <span className={classNames(classes)}>{children}</span>;
 }

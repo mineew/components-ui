@@ -5,7 +5,9 @@ import {
   ShieldExclamationIcon,
   AdjustmentsHorizontalIcon,
 } from '@heroicons/react/24/outline';
+import { useForm } from 'react-hook-form';
 
+import Button from '../Button';
 import Input from './Input';
 
 export const Default: StoryFn<typeof Input> = ({
@@ -100,6 +102,30 @@ export const AsButton: StoryFn<typeof Input> = ({
           Click me
         </Input>
       </div>
+    </div>
+  );
+};
+
+export const ReactHookForm = () => {
+  type FormValues = { text: string };
+  const { register, handleSubmit, formState } = useForm<FormValues>();
+
+  return (
+    <div style={{ padding: 20, maxWidth: 400 }}>
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
+        <Input
+          type="text"
+          placeholder="Required Text Field"
+          {...register('text', { required: true })}
+          invalid={!!formState.errors.text}
+        />
+
+        <div style={{ marginTop: 10 }}>
+          <Button type="submit" theme="primary">
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

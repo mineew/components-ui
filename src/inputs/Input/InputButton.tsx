@@ -12,11 +12,10 @@ interface InputButtonProps {
 
 function InputButton(props: InputButtonProps) {
   const { tooltip, active, disabled, onClick, children } = props;
+  if (!children) return null;
 
   const wrapperClasses = [];
   const buttonClasses = [];
-
-  if (!children) return null;
 
   wrapperClasses.push('absolute');
   wrapperClasses.push('right-2', 'top-1/2', '-translate-y-1/2');
