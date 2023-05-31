@@ -1,52 +1,30 @@
-import { type HTMLAttributes } from 'react';
 import classNames from 'classnames';
 
-import CheckboxIcon from './CheckboxIcon';
-
-interface CheckboxControlProps extends HTMLAttributes<HTMLDivElement> {
-  checked?: boolean | 'indeterminate';
-  focused?: boolean;
-  disabled?: boolean;
+interface CheckboxControlProps {
   invalid?: boolean;
   small?: boolean;
 }
 
 function CheckboxControl(props: CheckboxControlProps) {
-  const {
-    checked,
-    focused,
-    disabled,
-    invalid,
-    small,
-    className,
-    ...otherProps
-  } = props;
-
+  const { invalid, small } = props;
   const classes = [];
 
   classes.push('border', 'border-2');
-  classes.push(focused ? 'outline' : '', 'outline-2', 'outline-offset-2');
+  classes.push('peer-focus/input:outline', 'outline-2', 'outline-offset-2');
+  classes.push('cursor-pointer');
   classes.push('transition');
 
-  if (invalid && !disabled) {
-    classes.push(checked ? 'bg-red-600' : '');
+  if (invalid) {
+    classes.push('peer-checked/input:bg-red-600');
     classes.push('border-red-600');
     classes.push('outline-red-600');
-  }
-
-  if (!invalid && !disabled) {
-    classes.push(checked ? 'bg-slate-800' : '');
-    classes.push(checked || focused ? 'border-slate-800' : 'border-slate-300');
-    classes.push(!checked && !focused ? 'group-hover:border-slate-600' : '');
-    classes.push('outline-slate-800');
-  }
-
-  if (disabled) {
-    classes.push('bg-slate-100');
-    classes.push('border-slate-100');
-    classes.push('cursor-not-allowed');
   } else {
-    classes.push('cursor-pointer');
+    classes.push('border-slate-300');
+    classes.push('group-hover/label:border-slate-600');
+    classes.push('peer-checked/input:bg-slate-800');
+    classes.push('peer-checked/input:border-slate-800');
+    classes.push('peer-focus/input:border-slate-800');
+    classes.push('outline-slate-800');
   }
 
   if (small) {
@@ -57,11 +35,11 @@ function CheckboxControl(props: CheckboxControlProps) {
     classes.push('rounded-md');
   }
 
-  return (
-    <div className={classNames(classes, className)} {...otherProps}>
-      <CheckboxIcon checked={checked} disabled={disabled} small={small} />
-    </div>
-  );
+  classes.push('peer-disabled/input:bg-slate-100');
+  classes.push('peer-disabled/input:border-slate-100');
+  classes.push('peer-disabled/input:cursor-not-allowed');
+
+  return <div className={classNames(classes)} />;
 }
 
 export default CheckboxControl;

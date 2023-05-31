@@ -1,60 +1,79 @@
-import { type ReactNode, type Ref, forwardRef, useId, useMemo } from 'react';
-import { useMachine, normalizeProps } from '@zag-js/react';
-import * as checkbox from '@zag-js/checkbox';
+import {
+  type InputHTMLAttributes,
+  type ReactNode,
+  type Ref,
+  useRef,
+  useId,
+  useEffect,
+  forwardRef,
+} from 'react';
 import classNames from 'classnames';
 
 import CheckboxControl from './CheckboxControl';
+import CheckboxIcon from './CheckboxIcon';
 import CheckboxLabel from './CheckboxLabel';
 
-interface CheckboxProps {
+interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;
-  checked?: boolean | 'indeterminate';
-  onChange?: (checked: boolean) => void;
-  disabled?: boolean;
+  indeterminate?: boolean;
   invalid?: boolean;
   small?: boolean;
   muted?: boolean;
 }
 
 function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
-  const { label, checked, onChange, disabled, invalid, small, muted } = props;
+  const {
+    label,
+    indeterminate = false,
+    invalid,
+    small,
+    muted,
+    className,
+    id,
+    ...inputProps
+  } = props;
 
-  const [state, send] = useMachine(checkbox.machine({ id: useId() }), {
-    context: useMemo(
-      () => ({
-        checked,
-        disabled,
-        invalid,
-        onChange({ checked }) {
-          onChange?.(Boolean(checked));
-        },
-      }),
-      [checked, disabled, invalid, onChange],
-    ),
-  });
+  const labelRef = useRef<HTMLLabelElement>(null);
+  const generatedId = useId();
+  const actualId = id || generatedId;
 
-  const api = checkbox.connect(state, send, normalizeProps);
+  const wrapperClasses = [];
+  const inputClasses = [];
+
+  wrapperClasses.push('group/label');
+  wrapperClasses.push('inline-flex');
+  wrapperClasses.push('relative');
+
+  inputClasses.push('peer/input');
+  inputClasses.push('appearance-none');
+
+  useEffect(() => {
+    const input = labelRef.current?.firstElementChild;
+
+    if (input instanceof HTMLInputElement) {
+      input.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
 
   return (
-    <label className={classNames('group', 'inline-flex')} {...api.rootProps}>
-      <input ref={ref} {...api.inputProps} />
-
-      <CheckboxControl
-        checked={checked}
-        focused={api.isFocused}
-        disabled={disabled}
-        invalid={invalid}
-        small={small}
-        {...api.controlProps}
+    <label
+      ref={labelRef}
+      className={classNames(wrapperClasses, className)}
+      htmlFor={actualId}
+      role="checkbox"
+      aria-checked="true"
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      <input
+        ref={ref}
+        className={classNames(inputClasses)}
+        id={actualId}
+        type="checkbox"
+        {...inputProps}
       />
-
-      <CheckboxLabel
-        disabled={disabled}
-        invalid={invalid}
-        small={small}
-        muted={muted}
-        {...api.labelProps}
-      >
+      <CheckboxControl invalid={invalid} small={small} />
+      <CheckboxIcon indeterminate={indeterminate} small={small} />
+      <CheckboxLabel invalid={invalid} small={small} muted={muted}>
         {label}
       </CheckboxLabel>
     </label>

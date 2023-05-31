@@ -1,25 +1,24 @@
-import { type HTMLAttributes } from 'react';
+import { type ReactNode } from 'react';
 import classNames from 'classnames';
 
-interface CheckboxLabelProps extends HTMLAttributes<HTMLSpanElement> {
-  disabled?: boolean;
+interface CheckboxLabelProps {
   invalid?: boolean;
   small?: boolean;
   muted?: boolean;
+  children: ReactNode;
 }
 
 function CheckboxLabel(props: CheckboxLabelProps) {
-  const {
-    disabled,
-    invalid,
-    small,
-    muted,
-    className,
-    children,
-    ...otherProps
-  } = props;
-
+  const { invalid, small, muted, children } = props;
   const classes = [];
+
+  classes.push('ml-2');
+  classes.push('font-medium');
+  classes.push('select-none');
+  classes.push('cursor-pointer');
+
+  classes.push('peer-disabled/input:text-slate-500');
+  classes.push('peer-disabled/input:cursor-not-allowed');
 
   if (small) {
     classes.push('text-xs', 'leading-4');
@@ -27,28 +26,13 @@ function CheckboxLabel(props: CheckboxLabelProps) {
     classes.push('leading-5');
   }
 
-  classes.push('ml-2');
-  classes.push('font-medium');
-  classes.push('select-none');
-
   if (invalid) {
     classes.push('text-red-600');
-  } else if (muted && !disabled) {
+  } else if (muted) {
     classes.push('text-slate-600');
   }
 
-  if (disabled) {
-    classes.push('text-slate-500');
-    classes.push('cursor-not-allowed');
-  } else {
-    classes.push('cursor-pointer');
-  }
-
-  return (
-    <span className={classNames(classes, className)} {...otherProps}>
-      {children}
-    </span>
-  );
+  return <span className={classNames(classes)}>{children}</span>;
 }
 
 export default CheckboxLabel;
