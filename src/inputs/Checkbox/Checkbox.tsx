@@ -60,9 +60,7 @@ function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
       ref={labelRef}
       className={classNames(wrapperClasses, className)}
       htmlFor={actualId}
-      role="checkbox"
-      aria-checked="true"
-      onMouseDown={(e) => e.preventDefault()}
+      // onMouseDown={(e) => e.preventDefault()}
     >
       <input
         ref={ref}
