@@ -2,14 +2,14 @@ import { type ReactNode } from 'react';
 import classNames from 'classnames';
 
 interface CheckboxLabelProps {
+  children: ReactNode;
   invalid?: boolean;
   small?: boolean;
   muted?: boolean;
-  children: ReactNode;
 }
 
 function CheckboxLabel(props: CheckboxLabelProps) {
-  const { invalid, small, muted, children } = props;
+  const { children, invalid, small, muted } = props;
   const classes = [];
 
   classes.push('ml-2');

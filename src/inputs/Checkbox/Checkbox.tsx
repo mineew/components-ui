@@ -38,11 +38,15 @@ function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
   const actualId = id || generatedId;
 
   const wrapperClasses = [];
+  const labelClasses = [];
   const inputClasses = [];
 
-  wrapperClasses.push('group/label');
-  wrapperClasses.push('inline-flex');
-  wrapperClasses.push('relative');
+  wrapperClasses.push('inline-block');
+  wrapperClasses.push('leading-[0px]');
+
+  labelClasses.push('group/label');
+  labelClasses.push('inline-flex');
+  labelClasses.push('relative');
 
   inputClasses.push('peer/input');
   inputClasses.push('appearance-none');
@@ -56,25 +60,30 @@ function Checkbox(props: CheckboxProps, ref: Ref<HTMLInputElement>) {
   }, [indeterminate]);
 
   return (
-    <label
-      ref={labelRef}
-      className={classNames(wrapperClasses, className)}
-      htmlFor={actualId}
-      // onMouseDown={(e) => e.preventDefault()}
+    <div
+      className={classNames(wrapperClasses)}
+      role="presentation"
+      onMouseDown={(e) => e.preventDefault()}
     >
-      <input
-        ref={ref}
-        className={classNames(inputClasses)}
-        id={actualId}
-        type="checkbox"
-        {...inputProps}
-      />
-      <CheckboxControl invalid={invalid} small={small} />
-      <CheckboxIcon indeterminate={indeterminate} small={small} />
-      <CheckboxLabel invalid={invalid} small={small} muted={muted}>
-        {label}
-      </CheckboxLabel>
-    </label>
+      <label
+        ref={labelRef}
+        className={classNames(labelClasses, className)}
+        htmlFor={actualId}
+      >
+        <input
+          ref={ref}
+          className={classNames(inputClasses)}
+          id={actualId}
+          type="checkbox"
+          {...inputProps}
+        />
+        <CheckboxControl invalid={invalid} small={small} />
+        <CheckboxIcon indeterminate={indeterminate} small={small} />
+        <CheckboxLabel invalid={invalid} small={small} muted={muted}>
+          {label}
+        </CheckboxLabel>
+      </label>
+    </div>
   );
 }
 
