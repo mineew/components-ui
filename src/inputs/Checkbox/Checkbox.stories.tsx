@@ -46,7 +46,6 @@ export const ReactHookForm = () => {
           <Checkbox
             label="Optional Checkbox Field"
             {...register('checkboxOptional')}
-            invalid={!!formState.errors.checkboxOptional}
           />
         </div>
 

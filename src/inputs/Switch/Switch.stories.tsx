@@ -36,7 +36,6 @@ export const ReactHookForm = () => {
           <Switch
             label="Optional Switch Field"
             {...register('switchOptional')}
-            invalid={!!formState.errors.switchOptional}
           />
         </div>
 

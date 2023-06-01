@@ -107,24 +107,32 @@ export const AsButton: StoryFn<typeof Input> = ({
 };
 
 export const ReactHookForm = () => {
-  type FormValues = { text: string };
+  type FormValues = { requiredText: string; optionalText: string };
   const { register, handleSubmit, formState } = useForm<FormValues>();
 
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
       <form onSubmit={handleSubmit(action('onSubmit'))}>
-        <Input
-          type="text"
-          placeholder="Required Text Field"
-          {...register('text', { required: true })}
-          invalid={!!formState.errors.text}
-        />
-
-        <div style={{ marginTop: 10 }}>
-          <Button type="submit" theme="primary">
-            Submit
-          </Button>
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            type="text"
+            placeholder="Required Text Field"
+            {...register('requiredText', { required: true })}
+            invalid={!!formState.errors.requiredText}
+          />
         </div>
+
+        <div style={{ marginBottom: 10 }}>
+          <Input
+            type="text"
+            placeholder="Optional Text Field"
+            {...register('optionalText')}
+          />
+        </div>
+
+        <Button type="submit" theme="primary">
+          Submit
+        </Button>
       </form>
     </div>
   );
