@@ -11,8 +11,7 @@ function RadioIcon() {
   classes.push('bg-white');
   classes.push('scale-0', 'peer-checked/input:scale-100');
   classes.push('pointer-events-none');
-  classes.push('transform');
-  classes.push('transition');
+  classes.push('transition', 'transform');
 
   classes.push('peer-disabled/input:bg-slate-300');
 

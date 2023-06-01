@@ -13,10 +13,10 @@ function CheckboxIcon(props: CheckboxIconProps) {
   classes.push('absolute', 'top-[2px]', 'left-[2px]');
   classes.push('text-white');
   classes.push('scale-0', 'peer-checked/input:scale-100');
+  classes.push('pointer-events-none');
   classes.push('transition', 'transform');
 
   classes.push('peer-disabled/input:text-slate-300');
-  classes.push('peer-disabled/input:cursor-not-allowed');
 
   if (small) {
     classes.push('h-3', 'w-3');
