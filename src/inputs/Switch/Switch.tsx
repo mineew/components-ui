@@ -1,52 +1,62 @@
-import { type ReactNode, type Ref, forwardRef, useId } from 'react';
-import { useMachine, normalizeProps } from '@zag-js/react';
-import * as checkbox from '@zag-js/checkbox';
+import {
+  type InputHTMLAttributes,
+  type ReactNode,
+  type Ref,
+  useId,
+  forwardRef,
+} from 'react';
 import classNames from 'classnames';
 
 import SwitchControl from './SwitchControl';
+import SwitchCheck from './SwitchCheck';
+import SwitchThumb from './SwitchThumb';
 import SwitchLabel from './SwitchLabel';
 
-interface SwitchProps {
+interface SwitchProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  disabled?: boolean;
   invalid?: boolean;
 }
 
 function Switch(props: SwitchProps, ref: Ref<HTMLInputElement>) {
-  const { label, checked, onChange, disabled, invalid } = props;
+  const { label, invalid, className, id, ...inputProps } = props;
 
-  const [state, send] = useMachine(
-    checkbox.machine({
-      id: useId(),
-      checked,
-      disabled,
-      invalid,
-      onChange({ checked }) {
-        onChange?.(Boolean(checked));
-      },
-    }),
-  );
+  const generatedId = useId();
+  const actualId = id || generatedId;
 
-  const api = checkbox.connect(state, send, normalizeProps);
+  const wrapperClasses = [];
+  const labelClasses = [];
+  const inputClasses = [];
+
+  wrapperClasses.push('inline-block');
+  wrapperClasses.push('leading-[0px]');
+
+  labelClasses.push('group/label');
+  labelClasses.push('inline-flex');
+  labelClasses.push('relative');
+
+  inputClasses.push('peer/input');
+  inputClasses.push('appearance-none');
 
   return (
-    <label className={classNames('group', 'inline-flex')} {...api.rootProps}>
-      <input ref={ref} {...api.inputProps} />
-
-      <SwitchControl
-        checked={checked}
-        focused={api.isFocused}
-        disabled={disabled}
-        invalid={invalid}
-        {...api.controlProps}
-      />
-
-      <SwitchLabel disabled={disabled} invalid={invalid} {...api.labelProps}>
-        {label}
-      </SwitchLabel>
-    </label>
+    <div
+      className={classNames(wrapperClasses)}
+      role="presentation"
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      <label className={classNames(labelClasses, className)} htmlFor={actualId}>
+        <input
+          ref={ref}
+          className={classNames(inputClasses)}
+          id={actualId}
+          type="checkbox"
+          {...inputProps}
+        />
+        <SwitchControl invalid={invalid} />
+        <SwitchCheck />
+        <SwitchThumb />
+        <SwitchLabel invalid={invalid}>{label}</SwitchLabel>
+      </label>
+    </div>
   );
 }
 

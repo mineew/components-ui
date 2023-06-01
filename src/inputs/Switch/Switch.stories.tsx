@@ -1,66 +1,49 @@
 import { type Meta, type StoryFn } from '@storybook/react';
-import { useState } from 'react';
+import { action } from '@storybook/addon-actions';
+import { useForm } from 'react-hook-form';
 
+import Button from '../Button';
 import Switch from './Switch';
 
-const H1 = ({ children }: { children: string }) => {
-  return <h1 style={{ fontSize: 20, marginBottom: 10 }}>{children}</h1>;
+export const Default: StoryFn<typeof Switch> = ({
+  label,
+  disabled,
+  invalid,
+}) => {
+  return (
+    <div style={{ padding: 20 }}>
+      <Switch label={label} disabled={disabled} invalid={invalid} />
+    </div>
+  );
 };
 
-const H2 = ({ children }: { children: string }) => {
-  return <h2 style={{ fontSize: 16, marginBottom: 10 }}>{children}</h2>;
-};
-
-export const Default: StoryFn<typeof Switch> = () => {
-  const [checked, setChecked] = useState(false);
-  const [invalidDhecked, setInvalidChecked] = useState(false);
+export const ReactHookForm = () => {
+  type FormValues = { switchRequired: boolean; switchOptional: boolean };
+  const { register, handleSubmit, formState } = useForm<FormValues>();
 
   return (
     <div style={{ padding: 20 }}>
-      <div style={{ marginBottom: 40 }}>
-        <H1>Default</H1>
-
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
         <div style={{ marginBottom: 10 }}>
           <Switch
-            label="Enable Email Notifications"
-            checked={checked}
-            onChange={setChecked}
+            label="Required Switch Field"
+            {...register('switchRequired', { required: true })}
+            invalid={!!formState.errors.switchRequired}
           />
         </div>
 
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Switch label="Enable Email Notifications" checked disabled />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Switch label="Enable Email Notifications" disabled />
-        </div>
-      </div>
-
-      <div style={{ marginBottom: 40 }}>
-        <H1>Invalid</H1>
-
         <div style={{ marginBottom: 10 }}>
           <Switch
-            label="Enable Email Notifications"
-            checked={invalidDhecked}
-            onChange={setInvalidChecked}
-            invalid
+            label="Optional Switch Field"
+            {...register('switchOptional')}
+            invalid={!!formState.errors.switchOptional}
           />
         </div>
 
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Switch label="Enable Email Notifications" checked disabled invalid />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Switch label="Enable Email Notifications" disabled invalid />
-        </div>
-      </div>
+        <Button type="submit" theme="primary">
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
@@ -68,4 +51,9 @@ export const Default: StoryFn<typeof Switch> = () => {
 export default {
   title: 'Inputs/Switch',
   component: Switch,
+  args: {
+    label: 'Enable Email Notifications',
+    disabled: false,
+    invalid: false,
+  },
 } as Meta<typeof Switch>;

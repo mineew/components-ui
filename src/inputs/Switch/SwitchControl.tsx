@@ -1,52 +1,34 @@
-import { type HTMLAttributes } from 'react';
 import classNames from 'classnames';
 
-import SwitchCheck from './SwitchCheck';
-import SwitchThumb from './SwitchThumb';
-
-interface SwitchControlProps extends HTMLAttributes<HTMLDivElement> {
-  checked?: boolean;
-  focused?: boolean;
-  disabled?: boolean;
+interface SwitchControlProps {
   invalid?: boolean;
 }
 
 function SwitchControl(props: SwitchControlProps) {
-  const { checked, focused, disabled, invalid, className, ...otherProps } =
-    props;
+  const { invalid } = props;
   const classes = [];
 
-  classes.push('relative');
-  classes.push('inline-flex', 'items-center', 'shrink-0');
   classes.push('h-5', 'w-10', 'rounded-full');
-  classes.push(focused ? 'outline' : '', 'outline-2', 'outline-offset-2');
+  classes.push('peer-focus/input:outline', 'outline-2', 'outline-offset-2');
+  classes.push('cursor-pointer');
   classes.push('transition');
 
-  if (invalid && !disabled) {
+  if (invalid) {
     classes.push('bg-red-600');
     classes.push('outline-red-600');
-  }
-
-  if (!invalid && !disabled) {
-    classes.push(checked || focused ? 'bg-slate-800' : 'bg-slate-300');
-    classes.push(!checked && !focused ? 'group-hover:bg-slate-600' : '');
+  } else {
+    classes.push('bg-slate-300');
+    classes.push('group-hover/label:bg-slate-600');
+    classes.push('peer-checked/input:bg-slate-800');
+    classes.push('peer-focus/input:bg-slate-800');
     classes.push('outline-slate-800');
   }
 
-  if (disabled) {
-    classes.push('bg-slate-100');
-    classes.push('border-slate-100');
-    classes.push('cursor-not-allowed');
-  } else {
-    classes.push('cursor-pointer');
-  }
+  classes.push('peer-disabled/input:bg-slate-100');
+  classes.push('peer-disabled/input:border-slate-100');
+  classes.push('peer-disabled/input:cursor-not-allowed');
 
-  return (
-    <div className={classNames(classes, className)} {...otherProps}>
-      <SwitchCheck checked={checked} disabled={disabled} />
-      <SwitchThumb checked={checked} disabled={disabled} />
-    </div>
-  );
+  return <div className={classNames(classes)} />;
 }
 
 export default SwitchControl;
