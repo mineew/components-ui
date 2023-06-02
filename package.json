@@ -22,7 +22,9 @@
     "build": "tsc -p tsconfig.build.json",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build -o storybook-static",
-    "lint": "eslint .",
+    "lint": "run-s lint:eslint lint:ts",
+    "lint:eslint": "eslint .",
+    "lint:ts": "tsc --noEmit",
     "format": "prettier --write \"**/*.(t|j)s?(x)\"",
     "format:check": "prettier --check \"**/*.(t|j)s?(x)\"",
     "clear": "rimraf lib storybook-static",
@@ -35,10 +37,10 @@
     "deps:update": "ncu -ui"
   },
   "dependencies": {
+    "@floating-ui/react": "0.24.2",
     "@heroicons/react": "2.0.18",
     "@zag-js/react": "0.9.2",
     "@zag-js/select": "0.9.2",
-    "@zag-js/tooltip": "0.9.2",
     "classnames": "2.3.2"
   },
   "peerDependencies": {

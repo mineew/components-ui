@@ -14,27 +14,26 @@ function InputButton(props: InputButtonProps) {
   const { tooltip, active, disabled, onClick, children } = props;
   if (!children) return null;
 
-  const wrapperClasses = [];
-  const buttonClasses = [];
+  const classes = [];
 
-  wrapperClasses.push('absolute');
-  wrapperClasses.push('right-2', 'top-1/2', '-translate-y-1/2');
-  wrapperClasses.push('leading-[0px]');
+  classes.push('absolute');
+  classes.push('right-2', 'top-1/2', '-translate-y-1/2');
+  classes.push('leading-[0px]');
 
-  buttonClasses.push('w-5', 'h-5', 'rounded');
-  buttonClasses.push('transition');
+  classes.push('w-5', 'h-5', 'rounded');
+  classes.push('transition');
 
-  buttonClasses.push('text-slate-400');
-  buttonClasses.push(!disabled ? 'hover:text-slate-600' : '');
-  buttonClasses.push(!disabled ? 'group-hover:text-slate-600' : '');
+  classes.push('text-slate-400');
+  classes.push(!disabled ? 'hover:text-slate-600' : '');
+  classes.push(!disabled ? 'group-hover:text-slate-600' : '');
 
-  buttonClasses.push('focus:outline', 'outline-2', 'outline-slate-800');
-  buttonClasses.push('focus:text-slate-800');
-  buttonClasses.push('group-focus-within:!text-slate-800');
-  if (!disabled && active) buttonClasses.push('text-slate-800');
+  classes.push('focus:outline', 'outline-2', 'outline-slate-800');
+  classes.push('focus:text-slate-800');
+  classes.push('group-focus-within:!text-slate-800');
+  if (!disabled && active) classes.push('text-slate-800');
 
-  buttonClasses.push('disabled:cursor-not-allowed');
-  buttonClasses.push('disabled:text-slate-400');
+  classes.push('disabled:cursor-not-allowed');
+  classes.push('disabled:text-slate-400');
 
   const hasTooltip = !!tooltip && !disabled;
 
@@ -50,7 +49,7 @@ function InputButton(props: InputButtonProps) {
 
   const button = (
     <button
-      className={classNames(buttonClasses, hasTooltip ? null : wrapperClasses)}
+      className={classNames(classes)}
       type="button"
       disabled={disabled}
       onMouseDown={(e) => {
@@ -70,13 +69,7 @@ function InputButton(props: InputButtonProps) {
     </button>
   );
 
-  return hasTooltip ? (
-    <Tooltip className={classNames(wrapperClasses)} title={tooltip}>
-      {button}
-    </Tooltip>
-  ) : (
-    button
-  );
+  return hasTooltip ? <Tooltip title={tooltip}>{button}</Tooltip> : button;
 }
 
 export default InputButton;

@@ -1,19 +1,17 @@
-import { useId } from 'react';
-import { useMachine, normalizeProps, Portal } from '@zag-js/react';
-import * as tooltip from '@zag-js/tooltip';
+import { type HTMLProps, cloneElement } from 'react';
+import { FloatingPortal } from '@floating-ui/react';
 import classNames from 'classnames';
 
+import useTooltip from './useTooltip';
+
 interface TooltipProps {
-  className?: string;
   title: string;
   children: JSX.Element;
 }
 
 function Tooltip(props: TooltipProps) {
-  const { className, title, children } = props;
-
-  const [state, send] = useMachine(tooltip.machine({ id: useId() }));
-  const api = tooltip.connect(state, send, normalizeProps);
+  const { title, children } = props;
+  const tooltip = useTooltip();
 
   const classes = [];
 
@@ -27,21 +25,25 @@ function Tooltip(props: TooltipProps) {
 
   return (
     <>
-      <span
-        className={classNames('inline-block', className)}
-        {...api.triggerProps}
-      >
-        {children}
-      </span>
+      {cloneElement(
+        children,
+        tooltip.getReferenceProps({
+          ref: tooltip.refs.setReference,
+          ...(children.props as HTMLProps<Element>),
+        }),
+      )}
 
-      {api.isOpen && (
-        <Portal>
-          <div {...api.positionerProps}>
-            <div className={classNames(classes)} {...api.contentProps}>
-              {title}
-            </div>
+      {tooltip.isOpen && (
+        <FloatingPortal>
+          <div
+            ref={tooltip.refs.setFloating}
+            className={classNames(classes)}
+            style={tooltip.floatingStyles}
+            {...tooltip.getFloatingProps()}
+          >
+            {title}
           </div>
-        </Portal>
+        </FloatingPortal>
       )}
     </>
   );
