@@ -1,6 +1,10 @@
 import { type Meta, type StoryFn } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { useForm } from 'react-hook-form';
 
+import Button from '../Button';
 import Radio from './Radio';
+import RadioGroup from './RadioGroup';
 
 interface Color {
   code: string;
@@ -13,21 +17,71 @@ const colors: Color[] = [
   { code: '#9932CC', name: 'Dark Orchid' },
 ];
 
-export const Default: StoryFn<typeof Radio> = ({ disabled, invalid }) => {
+export const Default: StoryFn<typeof RadioGroup> = ({
+  legend,
+  orientation,
+  disabled,
+  invalid,
+}) => {
   return (
     <div style={{ padding: 20 }}>
-      <fieldset style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      <RadioGroup
+        legend={legend}
+        orientation={orientation}
+        name="color"
+        disabled={disabled}
+        invalid={invalid}
+      >
         {colors.map((color) => (
-          <Radio
-            key={color.code}
-            label={color.name}
-            name="color"
-            value={color.code}
-            disabled={disabled}
-            invalid={invalid}
-          />
+          <Radio key={color.code} label={color.name} value={color.code} />
         ))}
-      </fieldset>
+      </RadioGroup>
+    </div>
+  );
+};
+
+export const ReactHookForm = () => {
+  type FormValues = { radioRequired: string; radioOptional: string };
+  const { register, handleSubmit, formState } = useForm<FormValues>();
+
+  return (
+    <div style={{ padding: 20 }}>
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
+        <div style={{ marginBottom: 20 }}>
+          <RadioGroup
+            legend="Required Radio Field"
+            invalid={!!formState.errors.radioRequired}
+          >
+            <Radio
+              label="One"
+              value="one"
+              {...register('radioRequired', { required: true })}
+            />
+            <Radio
+              label="Two"
+              value="two"
+              {...register('radioRequired', { required: true })}
+            />
+            <Radio
+              label="Three"
+              value="three"
+              {...register('radioRequired', { required: true })}
+            />
+          </RadioGroup>
+        </div>
+
+        <div style={{ marginBottom: 20 }}>
+          <RadioGroup legend="Optional Radio Field">
+            <Radio label="One" value="one" {...register('radioOptional')} />
+            <Radio label="Two" value="two" {...register('radioOptional')} />
+            <Radio label="Three" value="three" {...register('radioOptional')} />
+          </RadioGroup>
+        </div>
+
+        <Button type="submit" theme="primary">
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
@@ -35,7 +89,15 @@ export const Default: StoryFn<typeof Radio> = ({ disabled, invalid }) => {
 export default {
   title: 'Inputs/Radio',
   component: Radio,
+  argTypes: {
+    orientation: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+    },
+  },
   args: {
+    legend: 'Select Your Favorite Color',
+    orientation: 'horizontal',
     disabled: false,
     invalid: false,
   },

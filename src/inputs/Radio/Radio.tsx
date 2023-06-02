@@ -3,6 +3,7 @@ import {
   type ReactNode,
   type Ref,
   useId,
+  useContext,
   forwardRef,
 } from 'react';
 import classNames from 'classnames';
@@ -10,6 +11,7 @@ import classNames from 'classnames';
 import RadioControl from './RadioControl';
 import RadioIcon from './RadioIcon';
 import RadioLabel from './RadioLabel';
+import { RadioGroupContext } from './RadioGroup';
 
 interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;
@@ -17,10 +19,16 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
-  const { label, invalid, className, id, ...inputProps } = props;
+  const { label, invalid, className, id, name, disabled, ...inputProps } =
+    props;
 
   const generatedId = useId();
   const actualId = id || generatedId;
+
+  const groupContext = useContext(RadioGroupContext);
+  const actualName = name ?? groupContext.name;
+  const actualDisabled = disabled ?? groupContext.disabled;
+  const actualInvalid = invalid ?? groupContext.invalid;
 
   const wrapperClasses = [];
   const labelClasses = [];
@@ -48,11 +56,13 @@ function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
           className={classNames(inputClasses)}
           type="radio"
           id={actualId}
+          name={actualName}
+          disabled={actualDisabled}
           {...inputProps}
         />
-        <RadioControl invalid={invalid} />
+        <RadioControl invalid={actualInvalid} />
         <RadioIcon />
-        <RadioLabel invalid={invalid}>{label}</RadioLabel>
+        <RadioLabel invalid={actualInvalid}>{label}</RadioLabel>
       </label>
     </div>
   );
