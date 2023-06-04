@@ -3,6 +3,8 @@
 UI Components Library built with ⚛️ **React**, 💨 **TailwindCSS** and ⚡️ **Zag**
 for use in my personal projects
 
+Compatible with 📋 **React Hook Form**
+
 ## Installation
 
 First, install the package:
