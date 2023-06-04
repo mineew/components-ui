@@ -26,9 +26,8 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
     (option) => getOptionValue(option) === value,
   );
 
-  const [state, send] = useMachine(
-    select.machine({
-      id: useId(),
+  const [state, send] = useMachine(select.machine({ id: useId() }), {
+    context: {
       name,
       selectedOption: defaultValueOption
         ? {
@@ -46,8 +45,8 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
       invalid,
       loop: true,
       positioning: { sameWidth: true },
-    }),
-  );
+    },
+  });
 
   const api = select.connect(state, send, normalizeProps);
 

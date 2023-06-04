@@ -1,14 +1,10 @@
 import { type StoryFn, type Meta } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Controller, useForm } from 'react-hook-form';
 
+import Button from '../Button';
 import Select from './Select';
-
-const H1 = ({ children }: { children: string }) => {
-  return <h1 style={{ fontSize: 20, marginBottom: 10 }}>{children}</h1>;
-};
-
-const H2 = ({ children }: { children: string }) => {
-  return <h2 style={{ fontSize: 16, marginBottom: 10 }}>{children}</h2>;
-};
+import { type SelectProps } from './SelectProps';
 
 interface Color {
   code: string;
@@ -28,146 +24,135 @@ const colors: Color[] = [
   { code: '#228B22', name: 'Forest Green' },
 ];
 
-export const Default: StoryFn = () => {
-  const options: Color[] = colors;
-  const getOptionValue = (option: Color) => option.code;
-  const getOptionLabel = (option: Color) => option.name;
-  const isOptionDisabled = (option: Color) =>
-    option.name.toLowerCase().includes('blue');
+const options: Color[] = colors;
+const getOptionValue = (option: Color) => option.code;
+const getOptionLabel = (option: Color) => option.name;
+const isOptionDisabled = (option: Color) => option.name.includes('Blue');
 
-  const renderOption = (option: Color, disabled?: boolean) => (
-    <span>
-      <span
-        style={{
-          display: 'inline-block',
-          width: 10,
-          height: 10,
-          borderRadius: 999,
-          backgroundColor: disabled ? 'currentColor' : option.code,
-          opacity: disabled ? 0.5 : undefined,
-          marginRight: 5,
-          boxSizing: 'border-box',
-        }}
+const renderOption = (option: Color, disabled?: boolean) => (
+  <span>
+    <span
+      style={{
+        display: 'inline-block',
+        width: 10,
+        height: 10,
+        borderRadius: 999,
+        backgroundColor: disabled ? 'currentColor' : option.code,
+        opacity: disabled ? 0.5 : undefined,
+        marginRight: 5,
+        boxSizing: 'border-box',
+      }}
+    />
+
+    {option.name}
+  </span>
+);
+
+const getOptionGroup = (option: Color) => {
+  if (option.name.includes('Dark')) return 'Dark Colors';
+  if (option.name.includes('Light')) return 'Light Colors';
+};
+
+const groupSort = ['Dark Colors', 'Light Colors'];
+
+export const Default: StoryFn<typeof Select> = ({
+  placeholder,
+  disabled,
+  invalid,
+}) => {
+  return (
+    <div style={{ padding: 20, width: 400 }}>
+      <Select
+        placeholder={placeholder}
+        options={options}
+        getOptionValue={getOptionValue}
+        getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
+        isOptionDisabled={isOptionDisabled}
+        getOptionGroup={getOptionGroup}
+        groupSort={groupSort}
+        disabled={disabled}
+        invalid={invalid}
       />
-
-      {option.name}
-    </span>
+    </div>
   );
+};
 
-  const getOptionGroup = (option: Color) => {
-    if (option.name.toLowerCase().includes('dark')) return 'Dark Colors';
-    if (option.name.toLowerCase().includes('light')) return 'Light Colors';
+export const ReactHookForm = () => {
+  type FormValues = { selectRequired: string; selectOptional: string };
+  const { control, setValue, handleSubmit } = useForm<FormValues>();
+
+  const commonProps: SelectProps<Color> = {
+    options,
+    getOptionValue,
+    getOptionLabel,
+    renderOption,
+    isOptionDisabled,
+    getOptionGroup,
+    groupSort,
   };
-
-  const groupSort = ['Dark Colors', 'Light Colors'];
 
   return (
     <div style={{ padding: 20, width: 400 }}>
-      <div style={{ marginBottom: 40 }}>
-        <H1>Default</H1>
-
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
         <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-          />
-        </div>
-
-        <H2>With Groups</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            getOptionGroup={getOptionGroup}
-            groupSort={groupSort}
-          />
-        </div>
-
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            disabled
+          <Controller
+            control={control}
+            name="selectRequired"
+            rules={{ required: true }}
+            render={({ field, fieldState, formState }) => (
+              <Select
+                {...commonProps}
+                ref={field.ref}
+                placeholder="Required Select Field"
+                value={field.value}
+                onChange={(value) => {
+                  if (value) {
+                    setValue('selectRequired', value, {
+                      shouldValidate: formState.isSubmitted,
+                    });
+                  }
+                }}
+                invalid={fieldState.invalid}
+              />
+            )}
           />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Select
-            value={options[1].code}
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            disabled
-          />
-        </div>
-      </div>
-
-      <div style={{ marginBottom: 40 }}>
-        <H1>Invalid</H1>
-
-        <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            invalid
+          <Controller
+            control={control}
+            name="selectOptional"
+            render={({ field }) => (
+              <Select
+                {...commonProps}
+                ref={field.ref}
+                placeholder="Optional Select Field"
+                value={field.value}
+                onChange={(value) => {
+                  if (value) {
+                    setValue('selectOptional', value);
+                  }
+                }}
+              />
+            )}
           />
         </div>
 
-        <H2>Disabled</H2>
-
-        <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            disabled
-            invalid
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <Select
-            value={options[1].code}
-            placeholder="Select a color"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            renderOption={renderOption}
-            isOptionDisabled={isOptionDisabled}
-            disabled
-            invalid
-          />
-        </div>
-      </div>
+        <Button type="submit" theme="primary">
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
 
 export default {
   title: 'Inputs/Select',
-} as Meta;
+  component: Select,
+  args: {
+    placeholder: 'Select a color',
+    disabled: false,
+    invalid: false,
+  },
+} as Meta<typeof Select>;
