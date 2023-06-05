@@ -1,4 +1,4 @@
-import { type Ref, useId, forwardRef } from 'react';
+import { type Ref, useId, useEffect, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 
@@ -6,49 +6,34 @@ import Input from '../Input';
 
 import { type SelectProps } from './SelectProps';
 import SelectChevron from './SelectChevron';
-import SelectMenu from './SelectMenu';
 import SelectContent from './SelectContent';
+import SelectMenu from './SelectMenu';
+import SelectHiddenNative from './SelectHiddenNative';
+import getSelectedOption from './helpers/getSelectedOption';
+import updateSelectedOption from './helpers/updateSelectedOption';
 
 function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
-  const {
-    value,
-    onChange,
-    options,
-    getOptionValue,
-    getOptionLabel,
-    invalid,
-    disabled,
-    name,
-    ...otherProps
-  } = props;
+  const { id, value, disabled, invalid } = props;
 
-  const defaultValueOption = options.find(
-    (option) => getOptionValue(option) === value,
-  );
+  const generatedId = useId();
+  const actualId = id || generatedId;
 
-  const [state, send] = useMachine(select.machine({ id: useId() }), {
-    context: {
-      name,
-      selectedOption: defaultValueOption
-        ? {
-            value: getOptionValue(defaultValueOption),
-            label: getOptionLabel(defaultValueOption),
-          }
-        : undefined,
-      onChange(selected) {
-        onChange?.(
-          selected?.value,
-          options.find((option) => getOptionValue(option) === selected?.value),
-        );
-      },
-      disabled,
-      invalid,
+  const [state, send] = useMachine(
+    select.machine({
+      id: actualId,
+      selectedOption: getSelectedOption(props, value),
       loop: true,
       positioning: { sameWidth: true },
-    },
-  });
+    }),
+    { context: { disabled } },
+  );
 
   const api = select.connect(state, send, normalizeProps);
+
+  useEffect(() => {
+    updateSelectedOption(props, api, value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return (
     <>
@@ -70,13 +55,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
         </div>
       </Portal>
 
-      <select ref={ref} {...otherProps} {...api.hiddenSelectProps}>
-        {options.map((option) => (
-          <option key={getOptionValue(option)} value={getOptionValue(option)}>
-            {getOptionLabel(option)}
-          </option>
-        ))}
-      </select>
+      <SelectHiddenNative ref={ref} api={api} {...props} />
     </>
   );
 }

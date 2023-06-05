@@ -1,10 +1,10 @@
 import { type StoryFn, type Meta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Controller, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Button from '../Button';
 import Select from './Select';
-import { type SelectProps } from './SelectProps';
 
 interface Color {
   code: string;
@@ -78,64 +78,67 @@ export const Default: StoryFn<typeof Select> = ({
   );
 };
 
+export const Controlled: StoryFn<typeof Select> = ({
+  placeholder,
+  disabled,
+  invalid,
+}) => {
+  const [value, setValue] = useState('#9932CC');
+
+  return (
+    <div style={{ padding: 20, width: 400 }}>
+      <div style={{ marginBottom: 10 }}>
+        <Select
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          placeholder={placeholder}
+          options={options}
+          getOptionValue={getOptionValue}
+          getOptionLabel={getOptionLabel}
+          disabled={disabled}
+          invalid={invalid}
+        />
+      </div>
+
+      <div style={{ marginBottom: 10 }}>
+        Current Value: {value},{' '}
+        {colors.find((c) => c.code === value)?.name || ''}
+      </div>
+
+      <Button type="button" theme="primary" onClick={() => setValue('#1E90FF')}>
+        Use Dodger Blue
+      </Button>
+    </div>
+  );
+};
+
 export const ReactHookForm = () => {
   type FormValues = { selectRequired: string; selectOptional: string };
-  const { control, setValue, handleSubmit } = useForm<FormValues>();
-
-  const commonProps: SelectProps<Color> = {
-    options,
-    getOptionValue,
-    getOptionLabel,
-    renderOption,
-    isOptionDisabled,
-    getOptionGroup,
-    groupSort,
-  };
+  const { register, handleSubmit, formState } = useForm<FormValues>();
 
   return (
     <div style={{ padding: 20, width: 400 }}>
       <form onSubmit={handleSubmit(action('onSubmit'))}>
         <div style={{ marginBottom: 10 }}>
-          <Controller
-            control={control}
-            name="selectRequired"
-            rules={{ required: true }}
-            render={({ field, fieldState, formState }) => (
-              <Select
-                {...commonProps}
-                ref={field.ref}
-                placeholder="Required Select Field"
-                value={field.value}
-                onChange={(value) => {
-                  if (value) {
-                    setValue('selectRequired', value, {
-                      shouldValidate: formState.isSubmitted,
-                    });
-                  }
-                }}
-                invalid={fieldState.invalid}
-              />
-            )}
+          <Select
+            placeholder="Required Select Field"
+            options={options}
+            getOptionValue={getOptionValue}
+            getOptionLabel={getOptionLabel}
+            {...register('selectRequired', { required: true })}
+            invalid={!!formState.errors.selectRequired}
           />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Controller
-            control={control}
-            name="selectOptional"
-            render={({ field }) => (
-              <Select
-                {...commonProps}
-                ref={field.ref}
-                placeholder="Optional Select Field"
-                value={field.value}
-                onChange={(value) => {
-                  if (value) {
-                    setValue('selectOptional', value);
-                  }
-                }}
-              />
-            )}
+          <Select
+            placeholder="Optional Select Field"
+            options={options}
+            getOptionValue={getOptionValue}
+            getOptionLabel={getOptionLabel}
+            {...register('selectOptional')}
           />
         </div>
 

@@ -1,14 +1,7 @@
 import { type SelectHTMLAttributes } from 'react';
 import { type connect } from '@zag-js/select';
 
-type SelectNativeSelectProps = Omit<
-  SelectHTMLAttributes<HTMLSelectElement>,
-  'value' | 'onChange'
->;
-
-interface SelectProps<T> extends SelectNativeSelectProps {
-  value?: string;
-  onChange?: (value?: string, option?: T) => void;
+interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
   options: T[];
   getOptionValue: (option: T) => string;
   getOptionLabel: (option: T) => string;
@@ -21,4 +14,4 @@ interface SelectProps<T> extends SelectNativeSelectProps {
 
 type SelectMachine = ReturnType<typeof connect>;
 
-export type { SelectNativeSelectProps, SelectProps, SelectMachine };
+export type { SelectProps, SelectMachine };

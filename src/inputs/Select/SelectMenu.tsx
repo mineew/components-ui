@@ -4,7 +4,7 @@ import * as DropdownMenu from '../../feedback/DropdownMenu';
 
 import { type SelectProps, type SelectMachine } from './SelectProps';
 import SelectList from './SelectList';
-import buildSelectGroups from './buildSelectGroups';
+import buildSelectGroups from './helpers/buildSelectGroups';
 
 interface SelectMenuProps<T> extends SelectProps<T> {
   api: SelectMachine;
