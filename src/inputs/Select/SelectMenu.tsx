@@ -11,8 +11,8 @@ interface SelectMenuProps<T> extends SelectProps<T> {
 }
 
 function SelectMenu<T>(props: SelectMenuProps<T>) {
-  const { options, getOptionGroup, groupSort, api } = props;
-  const groups = buildSelectGroups(options, getOptionGroup, groupSort);
+  const { options, getOptionGroup, api } = props;
+  const groups = buildSelectGroups(props);
 
   return (
     <DropdownMenu.Menu {...api.contentProps}>

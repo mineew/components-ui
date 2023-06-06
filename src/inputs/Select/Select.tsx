@@ -8,24 +8,28 @@ import { type SelectProps } from './SelectProps';
 import SelectChevron from './SelectChevron';
 import SelectContent from './SelectContent';
 import SelectMenu from './SelectMenu';
-import SelectHiddenNative from './SelectHiddenNative';
 import getSelectedOption from './helpers/getSelectedOption';
+import getValueOption from './helpers/getValueOption';
 import updateSelectedOption from './helpers/updateSelectedOption';
 
-function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
-  const { id, value, disabled, invalid } = props;
-
-  const generatedId = useId();
-  const actualId = id || generatedId;
+function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
+  const { value, onChange, disabled, invalid } = props;
 
   const [state, send] = useMachine(
     select.machine({
-      id: actualId,
+      id: useId(),
       selectedOption: getSelectedOption(props, value),
       loop: true,
       positioning: { sameWidth: true },
     }),
-    { context: { disabled } },
+    {
+      context: {
+        onChange(option) {
+          onChange?.(option?.value, getValueOption(props, option?.value));
+        },
+        disabled,
+      },
+    },
   );
 
   const api = select.connect(state, send, normalizeProps);
@@ -38,6 +42,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
   return (
     <>
       <Input
+        ref={ref}
         as="button"
         className="text-left"
         rightIcon={<SelectChevron rotated={api.isOpen} />}
@@ -54,12 +59,10 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLSelectElement>) {
           <SelectMenu {...props} api={api} />
         </div>
       </Portal>
-
-      <SelectHiddenNative ref={ref} api={api} {...props} />
     </>
   );
 }
 
 export default forwardRef(Select) as <T>(
-  props: SelectProps<T> & { ref?: Ref<HTMLSelectElement> },
+  props: SelectProps<T> & { ref?: Ref<HTMLButtonElement> },
 ) => JSX.Element;

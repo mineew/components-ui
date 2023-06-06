@@ -1,7 +1,9 @@
-import { type SelectHTMLAttributes } from 'react';
 import { type connect } from '@zag-js/select';
 
-interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps<T> {
+  placeholder?: string;
+  value?: string;
+  onChange?: (value?: string, option?: T) => void;
   options: T[];
   getOptionValue: (option: T) => string;
   getOptionLabel: (option: T) => string;
@@ -9,6 +11,7 @@ interface SelectProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
   isOptionDisabled?: (option: T) => boolean;
   getOptionGroup?: (option: T) => string | undefined;
   groupSort?: string[];
+  disabled?: boolean;
   invalid?: boolean;
 }
 

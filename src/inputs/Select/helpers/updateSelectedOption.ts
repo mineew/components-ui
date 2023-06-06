@@ -5,7 +5,7 @@ import getSelectedOption from './getSelectedOption';
 function updateSelectedOption<T>(
   props: SelectProps<T>,
   api: SelectMachine,
-  value?: string | number | readonly string[],
+  value?: string,
 ) {
   const selectedOption = getSelectedOption(props, value);
 

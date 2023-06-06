@@ -1,7 +1,8 @@
 import { type StoryFn, type Meta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 import Button from '../Button';
 import Select from './Select';
@@ -90,8 +91,8 @@ export const Controlled: StoryFn<typeof Select> = ({
       <div style={{ marginBottom: 10 }}>
         <Select
           value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
+          onChange={(value) => {
+            setValue(value || '');
           }}
           placeholder={placeholder}
           options={options}
@@ -103,42 +104,88 @@ export const Controlled: StoryFn<typeof Select> = ({
       </div>
 
       <div style={{ marginBottom: 10 }}>
-        Current Value: {value},{' '}
-        {colors.find((c) => c.code === value)?.name || ''}
+        Current Value:{' '}
+        {!value ? (
+          '–'
+        ) : (
+          <>
+            {value}, {colors.find((c) => c.code === value)?.name || ''}
+          </>
+        )}
       </div>
 
-      <Button type="button" theme="primary" onClick={() => setValue('#1E90FF')}>
-        Use Dodger Blue
-      </Button>
+      <div style={{ display: 'flex', gap: 10 }}>
+        <Button
+          type="button"
+          theme="primary"
+          onClick={() => setValue('#1E90FF')}
+        >
+          Use Dodger Blue
+        </Button>
+
+        <Button
+          type="button"
+          theme="danger"
+          icon={<TrashIcon />}
+          onClick={() => setValue('')}
+        >
+          Clear
+        </Button>
+      </div>
     </div>
   );
 };
 
 export const ReactHookForm = () => {
   type FormValues = { selectRequired: string; selectOptional: string };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { control, setValue, handleSubmit } = useForm<FormValues>({
+    defaultValues: { selectOptional: '#483D8B' },
+  });
 
   return (
     <div style={{ padding: 20, width: 400 }}>
       <form onSubmit={handleSubmit(action('onSubmit'))}>
         <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Required Select Field"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            {...register('selectRequired', { required: true })}
-            invalid={!!formState.errors.selectRequired}
+          <Controller
+            control={control}
+            name="selectRequired"
+            rules={{ required: true }}
+            render={({ field, fieldState, formState }) => (
+              <Select
+                ref={field.ref}
+                placeholder="Required Select Field"
+                value={field.value}
+                onChange={(value) => {
+                  setValue('selectRequired', value || '', {
+                    shouldValidate: formState.isSubmitted,
+                  });
+                }}
+                options={options}
+                getOptionValue={getOptionValue}
+                getOptionLabel={getOptionLabel}
+                invalid={fieldState.invalid}
+              />
+            )}
           />
         </div>
 
         <div style={{ marginBottom: 10 }}>
-          <Select
-            placeholder="Optional Select Field"
-            options={options}
-            getOptionValue={getOptionValue}
-            getOptionLabel={getOptionLabel}
-            {...register('selectOptional')}
+          <Controller
+            control={control}
+            name="selectOptional"
+            render={({ field }) => (
+              <Select
+                ref={field.ref}
+                placeholder="Optional Select Field"
+                value={field.value}
+                onChange={(value) => {
+                  setValue('selectOptional', value || '');
+                }}
+                options={options}
+                getOptionValue={getOptionValue}
+                getOptionLabel={getOptionLabel}
+              />
+            )}
           />
         </div>
 

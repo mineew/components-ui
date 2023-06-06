@@ -1,8 +1,8 @@
-function buildSelectGroups<T>(
-  options: T[],
-  getOptionGroup?: (option: T) => string | undefined,
-  groupSort?: string[],
-) {
+import { type SelectProps } from '../SelectProps';
+
+function buildSelectGroups<T>(props: SelectProps<T>) {
+  const { options, getOptionGroup, groupSort } = props;
+
   if (!getOptionGroup) return [''];
 
   const groups: string[] = [];

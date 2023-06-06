@@ -1,9 +1,6 @@
 import { type SelectProps } from '../SelectProps';
 
-function getSelectedOption<T>(
-  props: SelectProps<T>,
-  value?: string | number | readonly string[],
-) {
+function getSelectedOption<T>(props: SelectProps<T>, value?: string) {
   const { options, getOptionValue, getOptionLabel } = props;
 
   const valueOption = options.find(
