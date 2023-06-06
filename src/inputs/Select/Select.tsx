@@ -1,6 +1,7 @@
 import { type Ref, useId, useEffect, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Input from '../Input';
 
@@ -13,7 +14,7 @@ import getValueOption from './helpers/getValueOption';
 import updateSelectedOption from './helpers/updateSelectedOption';
 
 function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
-  const { value, onChange, disabled, invalid } = props;
+  const { value, onChange, disabled, invalid, clearTooltip = 'Clear' } = props;
 
   const [state, send] = useMachine(
     select.machine({
@@ -45,7 +46,14 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
         ref={ref}
         as="button"
         className="text-left"
-        rightIcon={<SelectChevron rotated={api.isOpen} />}
+        rightIcon={
+          !api.selectedOption ? (
+            <SelectChevron rotated={api.isOpen} />
+          ) : undefined
+        }
+        rightButtonIcon={<XMarkIcon />}
+        rightButtonTooltip={clearTooltip}
+        onRightButtonClick={() => api.clearSelectedOption()}
         active={api.isOpen}
         disabled={disabled}
         invalid={invalid}
