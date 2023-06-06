@@ -25,12 +25,12 @@ function InputButton(props: InputButtonProps) {
 
   classes.push('text-slate-400');
   classes.push(!disabled ? 'hover:text-slate-600' : '');
-  classes.push(!disabled ? 'group-hover:text-slate-600' : '');
+  classes.push(!disabled && !active ? 'group-hover:text-slate-600' : '');
 
   classes.push('focus:outline', 'outline-2', 'outline-slate-800');
   classes.push('focus:text-slate-800');
   classes.push('group-focus-within:!text-slate-800');
-  if (!disabled && active) classes.push('text-slate-800');
+  if (!disabled && active) classes.push('!text-slate-800');
 
   classes.push('disabled:cursor-not-allowed');
   classes.push('disabled:text-slate-400');
@@ -38,13 +38,11 @@ function InputButton(props: InputButtonProps) {
   const hasTooltip = !!tooltip && !disabled;
 
   const focusInput = (eventTarget: EventTarget & HTMLButtonElement) => {
-    const input = hasTooltip
-      ? eventTarget.parentElement?.previousSibling
-      : eventTarget.previousSibling;
+    const node = eventTarget.previousSibling;
+    const focusable =
+      node && 'focus' in node ? (node as { focus: () => void }) : null;
 
-    if (input && input instanceof HTMLInputElement) {
-      input.focus();
-    }
+    focusable?.focus();
   };
 
   const button = (
