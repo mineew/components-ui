@@ -29,6 +29,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
           onChange?.(option?.value, getValueOption(props, option?.value));
         },
         disabled,
+        invalid,
       },
     },
   );
@@ -55,7 +56,6 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
         rightButtonTooltip={clearTooltip}
         onRightButtonClick={() => api.clearSelectedOption()}
         active={api.isOpen}
-        disabled={disabled}
         invalid={invalid}
         {...api.triggerProps}
       >
