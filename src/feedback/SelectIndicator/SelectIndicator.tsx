@@ -1,11 +1,11 @@
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 
-interface SelectChevronProps {
+interface SelectIndicatorProps {
   rotated?: boolean;
 }
 
-function SelectChevron(props: SelectChevronProps) {
+function SelectIndicator(props: SelectIndicatorProps) {
   const { rotated = false } = props;
   const classes = [];
 
@@ -15,4 +15,4 @@ function SelectChevron(props: SelectChevronProps) {
   return <ChevronDownIcon className={classNames(classes)} />;
 }
 
-export default SelectChevron;
+export default SelectIndicator;

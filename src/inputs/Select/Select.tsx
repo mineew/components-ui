@@ -4,9 +4,9 @@ import * as select from '@zag-js/select';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Input from '../Input';
+import SelectIndicator from '../../feedback/SelectIndicator';
 
 import { type SelectProps } from './SelectProps';
-import SelectChevron from './SelectChevron';
 import SelectContent from './SelectContent';
 import SelectMenu from './SelectMenu';
 import getSelectedOption from './helpers/getSelectedOption';
@@ -49,7 +49,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
         className="text-left"
         rightIcon={
           !api.selectedOption ? (
-            <SelectChevron rotated={api.isOpen} />
+            <SelectIndicator rotated={api.isOpen} />
           ) : undefined
         }
         rightButtonIcon={<XMarkIcon />}
