@@ -2,6 +2,7 @@ import {
   type ElementType,
   type ComponentPropsWithoutRef,
   type ComponentPropsWithRef,
+  type ButtonHTMLAttributes,
   forwardRef,
 } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -19,6 +20,7 @@ type InputCustomProps<T extends ElementType> = {
   rightIcon?: JSX.Element;
   rightButtonIcon?: JSX.Element;
   rightButtonTooltip?: string;
+  rightButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
   onRightButtonClick?: () => void;
 };
 
@@ -39,6 +41,7 @@ function Input<T extends ElementType = 'input'>(
     rightIcon,
     rightButtonIcon,
     rightButtonTooltip,
+    rightButtonProps,
     onRightButtonClick,
     className,
     disabled,
@@ -102,7 +105,8 @@ function Input<T extends ElementType = 'input'>(
         <InputButton
           tooltip={rightButtonTooltip}
           active={active}
-          disabled={disabled}
+          {...rightButtonProps}
+          disabled={rightButtonProps?.disabled || disabled}
           onClick={onRightButtonClick}
         >
           {rightButtonIcon}

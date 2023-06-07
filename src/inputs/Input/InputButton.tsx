@@ -1,17 +1,16 @@
+import { type ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 
 import Tooltip from '../../feedback/Tooltip/Tooltip';
 
-interface InputButtonProps {
+interface InputButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltip?: string;
   active?: boolean;
-  disabled?: boolean;
   onClick?: () => void;
-  children?: JSX.Element;
 }
 
 function InputButton(props: InputButtonProps) {
-  const { tooltip, active, disabled, onClick, children } = props;
+  const { tooltip, active, onClick, disabled, children, ...otherProps } = props;
   if (!children) return null;
 
   const classes = [];
@@ -62,6 +61,7 @@ function InputButton(props: InputButtonProps) {
           focusInput(e.currentTarget);
         }
       }}
+      {...otherProps}
     >
       {children}
     </button>
