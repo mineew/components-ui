@@ -5,7 +5,6 @@ import {
   type ButtonHTMLAttributes,
   forwardRef,
 } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 
 import InputWrapper from './InputWrapper';
@@ -60,10 +59,6 @@ function Input<T extends ElementType = 'input'>(
   classes.push('disabled:text-slate-500');
   classes.push('disabled:cursor-not-allowed');
 
-  if (as === 'select') {
-    classes.push('appearance-none');
-  }
-
   if (leftIcon) {
     classes.push('pl-9');
   }
@@ -98,7 +93,7 @@ function Input<T extends ElementType = 'input'>(
         disabled={disabled}
         invalid={invalid}
       >
-        {rightIcon || (as === 'select' ? <ChevronDownIcon /> : undefined)}
+        {rightIcon}
       </InputIcon>
 
       {!rightIcon && (
