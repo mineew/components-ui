@@ -55,8 +55,16 @@ function InputToolbar(props: InputToolbarProps) {
     }
   }
 
-  const focusInput = (eventTarget: EventTarget & HTMLDivElement) => {
-    const node = eventTarget.previousSibling;
+  const focusInput = (
+    eventTarget:
+      | (EventTarget & HTMLDivElement)
+      | (EventTarget & HTMLButtonElement),
+  ) => {
+    const node =
+      eventTarget instanceof HTMLButtonElement
+        ? eventTarget.parentNode?.previousSibling
+        : eventTarget.previousSibling;
+
     const focusable =
       node && 'focus' in node ? (node as { focus: () => void }) : null;
 
@@ -85,6 +93,15 @@ function InputToolbar(props: InputToolbarProps) {
             className={classNames(itemClasses, item.className)}
             type="button"
             disabled={actualDisabled}
+            onKeyUp={(e) => {
+              if (e.key === ' ') {
+                e.preventDefault();
+                focusInput(e.currentTarget);
+                e.currentTarget.click();
+              }
+
+              item.onKeyUp?.(e);
+            }}
           >
             <div className="w-5">{item.icon}</div>
           </button>
