@@ -19,7 +19,9 @@ export const Default: StoryFn<typeof PasswordInput> = () => {
 
 export const ReactHookForm = () => {
   type FormValues = { requiredPswd: string; optionalPswd: string };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: { optionalPswd: 'Optional Password Value' },
+  });
 
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>

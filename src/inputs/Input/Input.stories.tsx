@@ -2,32 +2,27 @@ import { type Meta, type StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
   UserCircleIcon,
-  ShieldExclamationIcon,
   AdjustmentsHorizontalIcon,
+  BellSlashIcon,
+  EllipsisHorizontalIcon,
+  ClockIcon,
 } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useForm } from 'react-hook-form';
 
 import Button from '../Button';
 import Input from './Input';
 
 export const Default: StoryFn<typeof Input> = ({
-  placeholder,
   active,
   invalid,
   disabled,
 }) => {
-  const leftIcon = <UserCircleIcon />;
-  const rightIcon = <ShieldExclamationIcon />;
-
-  const rightButtonIcon = <AdjustmentsHorizontalIcon />;
-  const rightButtonTooltip = 'Settings';
-  const onRightButtonClick = action('Click');
-
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
       <div style={{ marginBottom: 20 }}>
         <Input
-          placeholder={placeholder as string}
+          placeholder="Simple Input"
           active={active}
           invalid={invalid}
           disabled={disabled as boolean}
@@ -36,24 +31,58 @@ export const Default: StoryFn<typeof Input> = ({
 
       <div style={{ marginBottom: 20 }}>
         <Input
-          placeholder={placeholder as string}
+          placeholder="Input With Icon"
+          icon={<UserCircleIcon />}
           active={active}
           invalid={invalid}
           disabled={disabled as boolean}
-          leftIcon={leftIcon}
-          rightIcon={rightIcon}
         />
       </div>
 
-      <div>
+      <div style={{ marginBottom: 20 }}>
         <Input
-          placeholder={placeholder as string}
+          placeholder="Input With Both Icons"
+          icon={<UserCircleIcon />}
+          rightIcon={<ChevronDownIcon />}
           active={active}
           invalid={invalid}
           disabled={disabled as boolean}
-          rightButtonIcon={rightButtonIcon}
-          rightButtonTooltip={rightButtonTooltip}
-          onRightButtonClick={onRightButtonClick}
+        />
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <Input
+          placeholder="Input With Button"
+          active={active}
+          invalid={invalid}
+          disabled={disabled as boolean}
+          toolbar={{
+            icon: <AdjustmentsHorizontalIcon />,
+            tooltip: 'Settings',
+            onClick: action('Click "Settings"'),
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <Input
+          placeholder="Input With Toolbar"
+          icon={<ClockIcon />}
+          active={active}
+          invalid={invalid}
+          disabled={disabled as boolean}
+          toolbar={[
+            {
+              icon: <BellSlashIcon />,
+              tooltip: 'Enable Notifications',
+              onClick: action('Click "Enable Notifications"'),
+            },
+            {
+              icon: <EllipsisHorizontalIcon />,
+              tooltip: 'More Options',
+              onClick: action('Click "More Options"'),
+            },
+          ]}
         />
       </div>
     </div>
@@ -62,7 +91,9 @@ export const Default: StoryFn<typeof Input> = ({
 
 export const ReactHookForm = () => {
   type FormValues = { requiredText: string; optionalText: string };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: { optionalText: 'Optional Text Value' },
+  });
 
   return (
     <div style={{ padding: 20, maxWidth: 400 }}>
@@ -96,7 +127,6 @@ export default {
   title: 'Inputs/Input',
   component: Input,
   args: {
-    placeholder: 'Your Name',
     active: false,
     invalid: false,
     disabled: false,

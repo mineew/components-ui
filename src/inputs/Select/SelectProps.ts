@@ -13,7 +13,6 @@ interface SelectProps<T> {
   groupSort?: string[];
   disabled?: boolean;
   invalid?: boolean;
-  clearTooltip?: string;
 }
 
 type SelectMachine = ReturnType<typeof connect>;

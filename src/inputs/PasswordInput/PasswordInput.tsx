@@ -10,13 +10,7 @@ import Input, { type InputProps } from '../Input/Input';
 
 type PasswordInputProps = Omit<
   InputProps<'input'>,
-  | 'type'
-  | 'as'
-  | 'leftIcon'
-  | 'rightIcon'
-  | 'rightButtonIcon'
-  | 'rightButtonTooltip'
-  | 'onRightButtonClick'
+  'type' | 'as' | 'icon' | 'toolbar'
 > & {
   showPasswordTooltip?: string;
   hidePasswordTooltip?: string;
@@ -40,10 +34,8 @@ function PasswordInput(props: PasswordInputProps, ref: Ref<HTMLInputElement>) {
     <Input
       ref={ref}
       type={type}
-      leftIcon={<KeyIcon />}
-      rightButtonIcon={icon}
-      rightButtonTooltip={tooltip}
-      onRightButtonClick={toggleType}
+      icon={<KeyIcon />}
+      toolbar={{ icon, tooltip, onClick: toggleType }}
       {...inputProps}
     />
   );

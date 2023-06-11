@@ -2,25 +2,21 @@ import {
   type ElementType,
   type ComponentPropsWithoutRef,
   type ComponentPropsWithRef,
-  type ButtonHTMLAttributes,
   forwardRef,
 } from 'react';
 import classNames from 'classnames';
 
 import InputWrapper from './InputWrapper';
 import InputIcon from './InputIcon';
-import InputButton from './InputButton';
+import InputToolbar, { type InputToolbarItem } from './InputToolbar';
 
 type InputCustomProps<T extends ElementType> = {
   as?: T;
   active?: boolean;
   invalid?: boolean;
-  leftIcon?: JSX.Element;
+  icon?: JSX.Element;
   rightIcon?: JSX.Element;
-  rightButtonIcon?: JSX.Element;
-  rightButtonTooltip?: string;
-  rightButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-  onRightButtonClick?: () => void;
+  toolbar?: InputToolbarItem | InputToolbarItem[];
 };
 
 type InputProps<T extends ElementType> = InputCustomProps<T> &
@@ -36,12 +32,9 @@ function Input<T extends ElementType = 'input'>(
     as = 'input',
     active = false,
     invalid = false,
-    leftIcon,
+    icon,
     rightIcon,
-    rightButtonIcon,
-    rightButtonTooltip,
-    rightButtonProps,
-    onRightButtonClick,
+    toolbar,
     className,
     disabled,
     ...otherProps
@@ -59,11 +52,11 @@ function Input<T extends ElementType = 'input'>(
   classes.push('disabled:text-slate-500');
   classes.push('disabled:cursor-not-allowed');
 
-  if (leftIcon) {
+  if (icon) {
     classes.push('pl-9');
   }
 
-  if (rightIcon || rightButtonIcon) {
+  if (rightIcon) {
     classes.push('pr-9');
   }
 
@@ -71,14 +64,14 @@ function Input<T extends ElementType = 'input'>(
 
   return (
     <InputWrapper active={active} disabled={disabled} invalid={invalid}>
-      <InputIcon
-        type="left"
-        active={active}
-        disabled={disabled}
-        invalid={invalid}
-      >
-        {leftIcon}
-      </InputIcon>
+      {!!icon && (
+        <InputIcon
+          icon={icon}
+          active={active}
+          disabled={disabled}
+          invalid={invalid}
+        />
+      )}
 
       <Element
         ref={ref}
@@ -87,25 +80,23 @@ function Input<T extends ElementType = 'input'>(
         {...otherProps}
       />
 
-      <InputIcon
-        type="right"
-        active={active}
-        disabled={disabled}
-        invalid={invalid}
-      >
-        {rightIcon}
-      </InputIcon>
-
-      {!rightIcon && (
-        <InputButton
-          tooltip={rightButtonTooltip}
+      {!!toolbar && (
+        <InputToolbar
+          items={Array.isArray(toolbar) ? toolbar : [toolbar]}
           active={active}
-          {...rightButtonProps}
-          disabled={rightButtonProps?.disabled || disabled}
-          onClick={onRightButtonClick}
-        >
-          {rightButtonIcon}
-        </InputButton>
+          disabled={disabled}
+          invalid={invalid}
+        />
+      )}
+
+      {!toolbar && !!rightIcon && (
+        <InputIcon
+          icon={rightIcon}
+          type="right"
+          active={active}
+          disabled={disabled}
+          invalid={invalid}
+        />
       )}
     </InputWrapper>
   );
