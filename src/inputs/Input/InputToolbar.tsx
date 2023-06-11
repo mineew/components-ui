@@ -55,6 +55,17 @@ function InputToolbar(props: InputToolbarProps) {
     }
   }
 
+  if (!disabled) {
+    itemClasses.push('disabled:cursor-not-allowed');
+    itemClasses.push('disabled:bg-transparent');
+    itemClasses.push(
+      invalid ? 'disabled:!text-red-200' : 'disabled:!text-slate-200',
+    );
+    itemClasses.push(
+      invalid ? '' : 'group-focus-within:disabled:!text-slate-300',
+    );
+  }
+
   const focusInput = (
     eventTarget:
       | (EventTarget & HTMLDivElement)
