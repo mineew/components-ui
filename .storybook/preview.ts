@@ -10,6 +10,11 @@ const preview: Preview = {
       hideNoControlsWarning: true,
     },
 
+    docs: {
+      // https://github.com/storybookjs/storybook/issues/17720
+      source: { code: 'disabled' },
+    },
+
     options: {
       storySort: {
         order: ['Inputs', 'Feedback', 'Data Display'],
