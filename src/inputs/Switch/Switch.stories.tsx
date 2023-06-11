@@ -19,7 +19,9 @@ export const Default: StoryFn<typeof Switch> = ({
 
 export const ReactHookForm = () => {
   type FormValues = { switchRequired: boolean; switchOptional: boolean };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: { switchOptional: true },
+  });
 
   return (
     <div style={{ padding: 20 }}>

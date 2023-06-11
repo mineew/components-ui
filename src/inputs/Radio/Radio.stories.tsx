@@ -42,7 +42,9 @@ export const Default: StoryFn<typeof RadioGroup> = ({
 
 export const ReactHookForm = () => {
   type FormValues = { radioRequired: string; radioOptional: string };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: { radioOptional: 'two' },
+  });
 
   return (
     <div style={{ padding: 20 }}>

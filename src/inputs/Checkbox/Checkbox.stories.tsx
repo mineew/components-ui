@@ -29,7 +29,9 @@ export const Default: StoryFn<typeof Checkbox> = ({
 
 export const ReactHookForm = () => {
   type FormValues = { checkboxRequired: boolean; checkboxOptional: boolean };
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: { checkboxOptional: true },
+  });
 
   return (
     <div style={{ padding: 20 }}>
