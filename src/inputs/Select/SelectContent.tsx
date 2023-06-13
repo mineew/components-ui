@@ -18,12 +18,12 @@ function SelectContent<T>(props: SelectContentProps<T>) {
   } = props;
 
   const selectedOption = options.find(
-    (option) => getOptionValue(option) === api.selectedOption?.value,
+    (option) => getOptionValue?.(option) === api.selectedOption?.value,
   );
 
   return selectedOption ? (
     <>
-      {renderOption(
+      {renderOption?.(
         selectedOption,
         isOptionDisabled?.(selectedOption) || disabled,
       )}

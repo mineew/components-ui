@@ -3,11 +3,11 @@ import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 
 import Input from '../Input';
-import SelectIndicator from '../../feedback/SelectIndicator';
+import SelectIndicator from '../../utils/SelectIndicator';
+import SelectMenu from '../../utils/SelectMenu';
 
 import { type SelectProps } from './SelectProps';
 import SelectContent from './SelectContent';
-import SelectMenu from './SelectMenu';
 import getSelectedOption from './helpers/getSelectedOption';
 import getValueOption from './helpers/getValueOption';
 import updateSelectedOption from './helpers/updateSelectedOption';
@@ -56,7 +56,23 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
 
       <Portal>
         <div {...api.positionerProps}>
-          <SelectMenu {...props} api={api} />
+          <SelectMenu
+            {...props}
+            selectedValue={api.selectedOption?.value}
+            activeValue={api.highlightedOption?.value}
+            getMenuProps={() => {
+              return api.contentProps;
+            }}
+            getOptionGroupLabelProps={(groupId) => {
+              return api.getOptionGroupLabelProps({ htmlFor: groupId });
+            }}
+            getOptionGroupProps={(groupId) => {
+              return api.getOptionGroupProps({ id: groupId });
+            }}
+            getOptionProps={(context) => {
+              return api.getOptionProps(context);
+            }}
+          />
         </div>
       </Portal>
     </>

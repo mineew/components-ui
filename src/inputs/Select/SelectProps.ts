@@ -1,16 +1,21 @@
 import { type connect } from '@zag-js/select';
 
-interface SelectProps<T> {
+import { type SelectMenuProps } from '../../utils/SelectMenu';
+
+type Select_SelectMenuProps<T> = Omit<
+  SelectMenuProps<T>,
+  | 'selectedValue'
+  | 'activeValue'
+  | 'getOptionProps'
+  | 'getMenuProps'
+  | 'getOptionGroupLabelProps'
+  | 'getOptionGroupProps'
+>;
+
+interface SelectProps<T> extends Select_SelectMenuProps<T> {
   placeholder?: string;
   value?: string;
   onChange?: (value?: string, option?: T) => void;
-  options: T[];
-  getOptionValue: (option: T) => string;
-  getOptionLabel: (option: T) => string;
-  renderOption?: (option: T, disabled?: boolean) => JSX.Element;
-  isOptionDisabled?: (option: T) => boolean;
-  getOptionGroup?: (option: T) => string | undefined;
-  groupSort?: string[];
   disabled?: boolean;
   invalid?: boolean;
 }
