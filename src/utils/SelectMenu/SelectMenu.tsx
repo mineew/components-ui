@@ -3,11 +3,13 @@ import { type HTMLAttributes, type LabelHTMLAttributes, Fragment } from 'react';
 import * as DropdownMenu from '../../feedback/DropdownMenu';
 
 import SelectList, { type SelectListProps } from './SelectList';
+import SelectNotFound from './SelectNotFound';
 import filterOptions from './helpers/filterOptions';
 import buildSelectGroups from './helpers/buildSelectGroups';
 
 interface SelectMenuProps<T> extends SelectListProps<T> {
   query?: string;
+  notFoundMessage?: string;
   getOptionGroup?: (option: T) => string | undefined;
   groupSort?: string[];
   getMenuProps?: () => HTMLAttributes<HTMLDivElement>;
@@ -23,6 +25,7 @@ interface SelectMenuProps<T> extends SelectListProps<T> {
 
 function SelectMenu<T>(props: SelectMenuProps<T>) {
   const {
+    notFoundMessage = 'Ничего не найдено',
     getOptionGroup,
     getMenuProps,
     getOptionGroupLabelProps,
@@ -31,6 +34,14 @@ function SelectMenu<T>(props: SelectMenuProps<T>) {
 
   const groups = buildSelectGroups(props);
   const options = filterOptions(props);
+
+  if (!options.length) {
+    return (
+      <DropdownMenu.Menu {...getMenuProps?.()}>
+        <SelectNotFound>{notFoundMessage}</SelectNotFound>
+      </DropdownMenu.Menu>
+    );
+  }
 
   return (
     <DropdownMenu.Menu {...getMenuProps?.()}>

@@ -69,6 +69,7 @@ export const Default: StoryFn<typeof Combobox> = ({
         groupSort={groupSort}
         disabled={disabled}
         invalid={invalid}
+        notFoundMessage="Nothing found"
       />
     </div>
   );

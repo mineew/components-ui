@@ -8,6 +8,7 @@ type Select_SelectMenuProps<T> = Omit<
   | 'activeValue'
   | 'getOptionProps'
   | 'query'
+  | 'notFoundMessage'
   | 'getMenuProps'
   | 'getOptionGroupLabelProps'
   | 'getOptionGroupProps'
