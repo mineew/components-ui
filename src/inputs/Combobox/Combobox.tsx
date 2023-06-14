@@ -1,22 +1,20 @@
 import { type Ref, useId, useState, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as combobox from '@zag-js/combobox';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 
-import Input from '../Input';
-import * as DropdownMenu from '../../feedback/DropdownMenu';
+import Input, { type InputToolbarItem } from '../Input';
+import SelectIndicator from '../../utils/SelectIndicator';
+import SelectMenu from '../../utils/SelectMenu';
 
-interface ComboboxProps<T> {
-  options: T[];
-  getOptionValue: (option: T) => string;
-  getOptionLabel: (option: T) => string;
-}
+import { type ComboboxProps } from './ComboboxProps';
 
 function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
-  const { options, getOptionValue, getOptionLabel } = props;
+  const { placeholder, options, getOptionLabel, disabled, invalid } = props;
   const [query, setQuery] = useState('');
 
   const filteredOptions = options.filter((option) =>
-    getOptionLabel(option).toLowerCase().includes(query.toLowerCase()),
+    getOptionLabel?.(option).toLowerCase().includes(query.toLowerCase()),
   );
 
   const [state, send] = useMachine(
@@ -28,41 +26,70 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
       onInputChange({ value }) {
         setQuery(value);
       },
-      positioning: { sameWidth: true },
       inputBehavior: 'autohighlight',
+      openOnClick: true,
+      loop: true,
+      positioning: { sameWidth: true },
     }),
+    {
+      context: {
+        placeholder,
+        disabled,
+        invalid,
+      },
+    },
   );
 
   const api = combobox.connect(state, send, normalizeProps);
+
+  const toolbar: InputToolbarItem[] = [
+    {
+      ...api.triggerProps,
+      key: 'select-indicator',
+      icon: <SelectIndicator rotated={api.isOpen} />,
+    },
+  ];
+
+  if (api.selectedValue) {
+    toolbar.unshift({
+      ...api.clearTriggerProps,
+      key: 'clear',
+      icon: <XMarkIcon />,
+      hidden: false,
+    });
+  }
 
   return (
     <>
       <div {...api.rootProps}>
         <div {...api.controlProps}>
-          <Input ref={ref} {...api.inputProps} />
+          <Input
+            ref={ref}
+            toolbar={toolbar}
+            active={api.isOpen}
+            invalid={invalid}
+            {...api.inputProps}
+          />
         </div>
       </div>
 
       <Portal>
         <div {...api.positionerProps}>
-          <DropdownMenu.Menu>
-            <DropdownMenu.List {...api.contentProps}>
-              {filteredOptions.map((option, index) => (
-                <DropdownMenu.Item
-                  key={getOptionValue(option)}
-                  {...api.getOptionProps({
-                    value: getOptionValue(option),
-                    label: getOptionLabel(option),
-                    index,
-                  })}
-                  selected={api.selectedValue === getOptionValue(option)}
-                  active={api.focusedOption?.value === getOptionValue(option)}
-                >
-                  {getOptionLabel(option)}
-                </DropdownMenu.Item>
-              ))}
-            </DropdownMenu.List>
-          </DropdownMenu.Menu>
+          <SelectMenu
+            {...props}
+            options={filteredOptions}
+            selectedValue={api.selectedValue}
+            activeValue={api.focusedOption?.value}
+            getMenuProps={() => {
+              return api.contentProps;
+            }}
+            getOptionGroupProps={(groupId, groupLabel) => {
+              return api.getOptionGroupProps({ label: groupLabel });
+            }}
+            getOptionProps={(context) => {
+              return api.getOptionProps(context);
+            }}
+          />
         </div>
       </Portal>
     </>

@@ -23,14 +23,52 @@ const colors: Color[] = [
 const options: Color[] = colors;
 const getOptionValue = (option: Color) => option.code;
 const getOptionLabel = (option: Color) => option.name;
+const isOptionDisabled = (option: Color) => option.name.includes('Blue');
 
-export const Default: StoryFn<typeof Combobox> = () => {
+const renderOption = (option: Color, disabled?: boolean) => (
+  <span>
+    <span
+      style={{
+        display: 'inline-block',
+        width: 10,
+        height: 10,
+        borderRadius: 999,
+        backgroundColor: disabled ? 'currentColor' : option.code,
+        opacity: disabled ? 0.5 : undefined,
+        marginRight: 5,
+        boxSizing: 'border-box',
+      }}
+    />
+
+    {option.name}
+  </span>
+);
+
+const getOptionGroup = (option: Color) => {
+  if (option.name.includes('Dark')) return 'Dark Colors';
+  if (option.name.includes('Light')) return 'Light Colors';
+};
+
+const groupSort = ['Dark Colors', 'Light Colors'];
+
+export const Default: StoryFn<typeof Combobox> = ({
+  placeholder,
+  disabled,
+  invalid,
+}) => {
   return (
     <div style={{ padding: 20, width: 400 }}>
       <Combobox
+        placeholder={placeholder}
         options={options}
         getOptionValue={getOptionValue}
         getOptionLabel={getOptionLabel}
+        renderOption={renderOption}
+        isOptionDisabled={isOptionDisabled}
+        getOptionGroup={getOptionGroup}
+        groupSort={groupSort}
+        disabled={disabled}
+        invalid={invalid}
       />
     </div>
   );
@@ -39,4 +77,9 @@ export const Default: StoryFn<typeof Combobox> = () => {
 export default {
   title: 'Inputs/Combobox',
   component: Combobox,
+  args: {
+    placeholder: 'Select a color',
+    disabled: false,
+    invalid: false,
+  },
 } as Meta<typeof Combobox>;
