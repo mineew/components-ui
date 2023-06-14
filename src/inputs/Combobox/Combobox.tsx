@@ -10,12 +10,8 @@ import SelectMenu from '../../utils/SelectMenu';
 import { type ComboboxProps } from './ComboboxProps';
 
 function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
-  const { placeholder, options, getOptionLabel, disabled, invalid } = props;
+  const { placeholder, disabled, invalid } = props;
   const [query, setQuery] = useState('');
-
-  const filteredOptions = options.filter((option) =>
-    getOptionLabel?.(option).toLowerCase().includes(query.toLowerCase()),
-  );
 
   const [state, send] = useMachine(
     combobox.machine({
@@ -77,7 +73,7 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
         <div {...api.positionerProps}>
           <SelectMenu
             {...props}
-            options={filteredOptions}
+            query={query}
             selectedValue={api.selectedValue}
             activeValue={api.focusedOption?.value}
             getMenuProps={() => {

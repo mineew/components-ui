@@ -3,9 +3,11 @@ import { type HTMLAttributes, type LabelHTMLAttributes, Fragment } from 'react';
 import * as DropdownMenu from '../../feedback/DropdownMenu';
 
 import SelectList, { type SelectListProps } from './SelectList';
+import filterOptions from './helpers/filterOptions';
 import buildSelectGroups from './helpers/buildSelectGroups';
 
 interface SelectMenuProps<T> extends SelectListProps<T> {
+  query?: string;
   getOptionGroup?: (option: T) => string | undefined;
   groupSort?: string[];
   getMenuProps?: () => HTMLAttributes<HTMLDivElement>;
@@ -21,7 +23,6 @@ interface SelectMenuProps<T> extends SelectListProps<T> {
 
 function SelectMenu<T>(props: SelectMenuProps<T>) {
   const {
-    options,
     getOptionGroup,
     getMenuProps,
     getOptionGroupLabelProps,
@@ -29,6 +30,7 @@ function SelectMenu<T>(props: SelectMenuProps<T>) {
   } = props;
 
   const groups = buildSelectGroups(props);
+  const options = filterOptions(props);
 
   return (
     <DropdownMenu.Menu {...getMenuProps?.()}>
@@ -40,6 +42,10 @@ function SelectMenu<T>(props: SelectMenuProps<T>) {
         const groupOptions = options.filter(
           (option) => (getOptionGroup?.(option) || '') === group,
         );
+
+        if (!groupOptions.length) {
+          return null;
+        }
 
         const list = <SelectList {...props} options={groupOptions} />;
 

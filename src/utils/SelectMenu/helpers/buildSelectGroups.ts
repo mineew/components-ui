@@ -1,10 +1,13 @@
 import { type SelectMenuProps } from '../SelectMenu';
 
+import filterOptions from './filterOptions';
+
 function buildSelectGroups<T>(props: SelectMenuProps<T>) {
-  const { options, getOptionGroup, groupSort } = props;
+  const { getOptionGroup, groupSort } = props;
 
   if (!getOptionGroup) return [''];
 
+  const options = filterOptions(props);
   const groups: string[] = [];
 
   options.forEach((option) => {
