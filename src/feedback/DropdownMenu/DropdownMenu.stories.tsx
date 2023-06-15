@@ -1,4 +1,6 @@
 import { type Meta, type StoryFn } from '@storybook/react';
+import { useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 import * as DropdownMenu from './';
 
@@ -75,6 +77,51 @@ export const WithMessage: StoryFn = () => {
     <div style={{ padding: 20, width: 300 }}>
       <DropdownMenu.Menu>
         <DropdownMenu.Message>Nothing found</DropdownMenu.Message>
+      </DropdownMenu.Menu>
+    </div>
+  );
+};
+
+export const WithInput: StoryFn = () => {
+  const [query, setQuery] = useState('');
+
+  const books = [
+    'Hear the Wind Sing',
+    'A Wild Sheep Chase',
+    'Norwegian Wood',
+    'A Farewell to Arms',
+    'For Whom the Bell Tolls',
+    'The Old Man and the Sea',
+    "Hatter's Castle",
+    'The Stars Look Down',
+    'The Citadel',
+  ];
+
+  const filteredBooks = books.filter((book) =>
+    book.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
+  return (
+    <div style={{ padding: 20, width: 300 }}>
+      <DropdownMenu.Menu>
+        <DropdownMenu.Input
+          icon={<MagnifyingGlassIcon />}
+          placeholder="Type to search a book..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+
+        {filteredBooks.length > 0 && (
+          <DropdownMenu.List>
+            {filteredBooks.map((book) => (
+              <DropdownMenu.Item key={book}>{book}</DropdownMenu.Item>
+            ))}
+          </DropdownMenu.List>
+        )}
+
+        {!filteredBooks.length && (
+          <DropdownMenu.Message>Nothing found</DropdownMenu.Message>
+        )}
       </DropdownMenu.Menu>
     </div>
   );

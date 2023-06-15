@@ -12,6 +12,7 @@ function DropdownMenu(props: DropdownMenuProps, ref: Ref<HTMLDivElement>) {
   classes.push('border', 'border-slate-300');
   classes.push('shadow-md', 'shadow-slate-200');
   classes.push('focus:outline-none');
+  classes.push('overflow-hidden');
 
   return (
     <div ref={ref} className={classNames(classes, className)} {...otherProps} />
