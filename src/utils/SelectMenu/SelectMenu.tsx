@@ -3,7 +3,6 @@ import { type HTMLAttributes, type LabelHTMLAttributes, Fragment } from 'react';
 import * as DropdownMenu from '../../feedback/DropdownMenu';
 
 import SelectList, { type SelectListProps } from './SelectList';
-import SelectNotFound from './SelectNotFound';
 import filterOptions from './helpers/filterOptions';
 import buildSelectGroups from './helpers/buildSelectGroups';
 
@@ -38,7 +37,7 @@ function SelectMenu<T>(props: SelectMenuProps<T>) {
   if (!options.length) {
     return (
       <DropdownMenu.Menu {...getMenuProps?.()}>
-        <SelectNotFound>{notFoundMessage}</SelectNotFound>
+        <DropdownMenu.Message>{notFoundMessage}</DropdownMenu.Message>
       </DropdownMenu.Menu>
     );
   }

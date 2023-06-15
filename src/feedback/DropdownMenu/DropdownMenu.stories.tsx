@@ -70,6 +70,16 @@ export const WithGroups: StoryFn = () => {
   );
 };
 
+export const WithMessage: StoryFn = () => {
+  return (
+    <div style={{ padding: 20, width: 300 }}>
+      <DropdownMenu.Menu>
+        <DropdownMenu.Message>Nothing found</DropdownMenu.Message>
+      </DropdownMenu.Menu>
+    </div>
+  );
+};
+
 export default {
   title: 'Feedback/DropdownMenu',
 } as Meta;
