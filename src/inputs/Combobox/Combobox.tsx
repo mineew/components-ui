@@ -5,7 +5,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Input, { type InputToolbarItem } from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
-import SelectMenu from '../../utils/SelectMenu';
+import { SelectMenu } from '../../utils/SelectMenu';
 
 import { type ComboboxProps } from './ComboboxProps';
 

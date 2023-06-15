@@ -1,8 +1,9 @@
-import { type SelectProps, type SelectMachine } from './SelectProps';
-import SelectPlaceholder from './SelectPlaceholder';
+import Placeholder from '../Placeholder/Placeholder';
+import { type SelectMenuProps } from './SelectMenu';
 
-interface SelectContentProps<T> extends SelectProps<T> {
-  api: SelectMachine;
+interface SelectContentProps<T> extends SelectMenuProps<T> {
+  placeholder?: string;
+  disabled?: boolean;
 }
 
 function SelectContent<T>(props: SelectContentProps<T>) {
@@ -12,13 +13,13 @@ function SelectContent<T>(props: SelectContentProps<T>) {
     getOptionLabel,
     renderOption = getOptionLabel,
     isOptionDisabled,
-    disabled,
+    selectedValue,
     placeholder,
-    api,
+    disabled,
   } = props;
 
   const selectedOption = options.find(
-    (option) => getOptionValue?.(option) === api.selectedOption?.value,
+    (option) => getOptionValue?.(option) === selectedValue,
   );
 
   return selectedOption ? (
@@ -29,7 +30,7 @@ function SelectContent<T>(props: SelectContentProps<T>) {
       )}
     </>
   ) : (
-    <SelectPlaceholder placeholder={placeholder} />
+    <Placeholder placeholder={placeholder} />
   );
 }
 

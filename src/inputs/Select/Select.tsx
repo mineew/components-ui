@@ -4,10 +4,9 @@ import * as select from '@zag-js/select';
 
 import Input from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
-import SelectMenu from '../../utils/SelectMenu';
+import { SelectMenu, SelectContent } from '../../utils/SelectMenu';
 
 import { type SelectProps } from './SelectProps';
-import SelectContent from './SelectContent';
 import getSelectedOption from './helpers/getSelectedOption';
 import getValueOption from './helpers/getValueOption';
 import updateSelectedOption from './helpers/updateSelectedOption';
@@ -51,7 +50,7 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
         invalid={invalid}
         {...api.triggerProps}
       >
-        <SelectContent {...props} api={api} />
+        <SelectContent {...props} selectedValue={api.selectedOption?.value} />
       </Input>
 
       <Portal>

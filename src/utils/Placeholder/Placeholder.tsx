@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 
-interface SelectPlaceholderProps {
+interface PlaceholderProps {
   placeholder?: string;
 }
 
-function SelectPlaceholder(props: SelectPlaceholderProps) {
+function Placeholder(props: PlaceholderProps) {
   const { placeholder } = props;
   const classes = [];
 
@@ -14,4 +14,4 @@ function SelectPlaceholder(props: SelectPlaceholderProps) {
   return <span className={classNames(classes)}>{placeholder}</span>;
 }
 
-export default SelectPlaceholder;
+export default Placeholder;
