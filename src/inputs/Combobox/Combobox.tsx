@@ -1,4 +1,4 @@
-import { type Ref, useId, forwardRef } from 'react';
+import { type Ref, useId, useState, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as combobox from '@zag-js/combobox';
 import { XMarkIcon } from '@heroicons/react/20/solid';
@@ -19,6 +19,8 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
     invalid,
   } = props;
 
+  const [query, setQuery] = useState('');
+
   const [state, send] = useMachine(
     combobox.machine({
       id: useId(),
@@ -29,6 +31,18 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
     }),
     {
       context: {
+        onOpen() {
+          setQuery('');
+        },
+        onInputChange({ value }) {
+          setQuery(value);
+        },
+        onSelect({ label }) {
+          if (label) {
+            api.setInputValue(label);
+            setQuery(label);
+          }
+        },
         onClose() {
           if (api.selectedValue) {
             const selectedOption = options.find(
@@ -41,6 +55,7 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
 
             if (selectedOptionLabel) {
               api.setInputValue(selectedOptionLabel);
+              setQuery(selectedOptionLabel);
             }
           }
         },
@@ -88,7 +103,7 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
         <div {...api.positionerProps}>
           <SelectMenu
             {...props}
-            query={api.inputValue}
+            query={query}
             selectedValue={api.selectedValue}
             activeValue={api.focusedOption?.value}
             getMenuProps={() => {
