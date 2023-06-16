@@ -1,4 +1,4 @@
-import { type Ref, useId, useState, forwardRef } from 'react';
+import { type Ref, useId, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as combobox from '@zag-js/combobox';
 import { XMarkIcon } from '@heroicons/react/20/solid';
@@ -10,18 +10,18 @@ import { SelectMenu } from '../../utils/SelectMenu';
 import { type ComboboxProps } from './ComboboxProps';
 
 function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
-  const { placeholder, disabled, invalid } = props;
-  const [query, setQuery] = useState('');
+  const {
+    options,
+    getOptionValue,
+    getOptionLabel,
+    placeholder,
+    disabled,
+    invalid,
+  } = props;
 
   const [state, send] = useMachine(
     combobox.machine({
       id: useId(),
-      onOpen() {
-        setQuery('');
-      },
-      onInputChange({ value }) {
-        setQuery(value);
-      },
       inputBehavior: 'autohighlight',
       openOnClick: true,
       loop: true,
@@ -29,6 +29,21 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
     }),
     {
       context: {
+        onClose() {
+          if (api.selectedValue) {
+            const selectedOption = options.find(
+              (option) => getOptionValue?.(option) === api.selectedValue,
+            );
+
+            const selectedOptionLabel = selectedOption
+              ? getOptionLabel?.(selectedOption)
+              : '';
+
+            if (selectedOptionLabel) {
+              api.setInputValue(selectedOptionLabel);
+            }
+          }
+        },
         placeholder,
         disabled,
         invalid,
@@ -73,7 +88,7 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
         <div {...api.positionerProps}>
           <SelectMenu
             {...props}
-            query={query}
+            query={api.inputValue}
             selectedValue={api.selectedValue}
             activeValue={api.focusedOption?.value}
             getMenuProps={() => {
