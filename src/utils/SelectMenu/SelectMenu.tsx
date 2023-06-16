@@ -34,44 +34,40 @@ function SelectMenu<T>(props: SelectMenuProps<T>) {
   const groups = buildSelectGroups(props);
   const options = filterOptions(props);
 
-  if (!options.length) {
-    return (
-      <DropdownMenu.Menu {...getMenuProps?.()}>
-        <DropdownMenu.Message>{notFoundMessage}</DropdownMenu.Message>
-      </DropdownMenu.Menu>
+  const dropdownContent = groups.map((group, groupIndex) => {
+    const groupId = group ? `${group}-${groupIndex}` : `no-group-${groupIndex}`;
+
+    const groupOptions = options.filter(
+      (option) => (getOptionGroup?.(option) || '') === group,
     );
-  }
+
+    if (!groupOptions.length) {
+      return null;
+    }
+
+    const list = <SelectList {...props} options={groupOptions} />;
+
+    return group ? (
+      <Fragment key={groupId}>
+        <DropdownMenu.Group {...getOptionGroupLabelProps?.(groupId, group)}>
+          {group}
+        </DropdownMenu.Group>
+        <DropdownMenu.List {...getOptionGroupProps?.(groupId, group)}>
+          {list}
+        </DropdownMenu.List>
+      </Fragment>
+    ) : (
+      <DropdownMenu.List key={groupId}>{list}</DropdownMenu.List>
+    );
+  });
 
   return (
     <DropdownMenu.Menu {...getMenuProps?.()}>
-      {groups.map((group, groupIndex) => {
-        const groupId = group
-          ? `${group}-${groupIndex}`
-          : `no-group-${groupIndex}`;
-
-        const groupOptions = options.filter(
-          (option) => (getOptionGroup?.(option) || '') === group,
-        );
-
-        if (!groupOptions.length) {
-          return null;
-        }
-
-        const list = <SelectList {...props} options={groupOptions} />;
-
-        return group ? (
-          <Fragment key={groupId}>
-            <DropdownMenu.Group {...getOptionGroupLabelProps?.(groupId, group)}>
-              {group}
-            </DropdownMenu.Group>
-            <DropdownMenu.List {...getOptionGroupProps?.(groupId, group)}>
-              {list}
-            </DropdownMenu.List>
-          </Fragment>
-        ) : (
-          <DropdownMenu.List key={groupId}>{list}</DropdownMenu.List>
-        );
-      })}
+      {options.length ? (
+        dropdownContent
+      ) : (
+        <DropdownMenu.Message>{notFoundMessage}</DropdownMenu.Message>
+      )}
     </DropdownMenu.Menu>
   );
 }
