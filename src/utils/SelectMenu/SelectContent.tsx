@@ -13,11 +13,8 @@ function SelectContent<T>(props: SelectContentProps<T>) {
     options,
     getOptionValue = defaultGetOptionValue,
     getOptionLabel = defaultGetOptionLabel,
-    renderOption = getOptionLabel,
-    isOptionDisabled,
     selectedValue,
     placeholder,
-    disabled,
   } = props;
 
   const selectedOption = options.find(
@@ -25,12 +22,7 @@ function SelectContent<T>(props: SelectContentProps<T>) {
   );
 
   return selectedOption ? (
-    <>
-      {renderOption(
-        selectedOption,
-        isOptionDisabled?.(selectedOption) || disabled,
-      )}
-    </>
+    <>{getOptionLabel(selectedOption)}</>
   ) : (
     <Placeholder placeholder={placeholder} />
   );

@@ -1,6 +1,7 @@
 import { type Ref, useId, useEffect, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
+import classNames from 'classnames';
 
 import Input from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
@@ -13,6 +14,7 @@ import updateSelectedOption from './helpers/updateSelectedOption';
 
 function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
   const { value, onChange, disabled, invalid } = props;
+  const classes = [];
 
   const [state, send] = useMachine(
     select.machine({
@@ -39,12 +41,15 @@ function Select<T>(props: SelectProps<T>, ref: Ref<HTMLButtonElement>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  classes.push('text-left');
+  classes.push('select-none');
+
   return (
     <>
       <Input
         ref={ref}
         as="button"
-        className="text-left"
+        className={classNames(classes)}
         rightIcon={<SelectIndicator rotated={api.isOpen} />}
         active={api.isOpen}
         invalid={invalid}
