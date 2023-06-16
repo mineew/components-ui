@@ -1,5 +1,7 @@
 import Placeholder from '../Placeholder/Placeholder';
 import { type SelectMenuProps } from './SelectMenu';
+import defaultGetOptionValue from './helpers/defaultGetOptionValue';
+import defaultGetOptionLabel from './helpers/defaultGetOptionLabel';
 
 interface SelectContentProps<T> extends SelectMenuProps<T> {
   placeholder?: string;
@@ -9,8 +11,8 @@ interface SelectContentProps<T> extends SelectMenuProps<T> {
 function SelectContent<T>(props: SelectContentProps<T>) {
   const {
     options,
-    getOptionValue,
-    getOptionLabel,
+    getOptionValue = defaultGetOptionValue,
+    getOptionLabel = defaultGetOptionLabel,
     renderOption = getOptionLabel,
     isOptionDisabled,
     selectedValue,
@@ -19,12 +21,12 @@ function SelectContent<T>(props: SelectContentProps<T>) {
   } = props;
 
   const selectedOption = options.find(
-    (option) => getOptionValue?.(option) === selectedValue,
+    (option) => getOptionValue(option) === selectedValue,
   );
 
   return selectedOption ? (
     <>
-      {renderOption?.(
+      {renderOption(
         selectedOption,
         isOptionDisabled?.(selectedOption) || disabled,
       )}

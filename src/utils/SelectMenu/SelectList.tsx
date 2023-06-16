@@ -2,8 +2,8 @@ import { type LiHTMLAttributes } from 'react';
 
 import * as DropdownMenu from '../../feedback/DropdownMenu';
 
-import optionToString from './helpers/optionToString';
-import not from './helpers/not';
+import defaultGetOptionValue from './helpers/defaultGetOptionValue';
+import defaultGetOptionLabel from './helpers/defaultGetOptionLabel';
 
 interface SelectListItemContext {
   index: number;
@@ -32,10 +32,10 @@ function SelectList<T>(props: SelectListProps<T>) {
     options,
     selectedValue,
     activeValue,
-    getOptionValue = optionToString,
-    getOptionLabel = optionToString,
-    isOptionDisabled = not,
+    getOptionValue = defaultGetOptionValue,
+    getOptionLabel = defaultGetOptionLabel,
     renderOption = getOptionLabel,
+    isOptionDisabled,
     getOptionProps,
   } = props;
 
@@ -46,7 +46,7 @@ function SelectList<T>(props: SelectListProps<T>) {
         const label = getOptionLabel(option);
         const selected = value === selectedValue;
         const active = value === activeValue;
-        const disabled = isOptionDisabled(option);
+        const disabled = Boolean(isOptionDisabled?.(option));
 
         const liProps = getOptionProps?.({
           index,

@@ -1,4 +1,4 @@
-function optionToString<T>(option: T) {
+function defaultGetOptionLabel<T>(option: T) {
   let label: unknown = option;
 
   if ('name' in (option as object)) {
@@ -20,4 +20,4 @@ function optionToString<T>(option: T) {
   return (label as string) + '';
 }
 
-export default optionToString;
+export default defaultGetOptionLabel;
