@@ -1,5 +1,5 @@
-import { forwardRef, type Ref, type LabelHTMLAttributes } from 'react';
 import classNames from 'classnames';
+import { forwardRef, type Ref, type LabelHTMLAttributes } from 'react';
 
 function DropdownMenuGroup(
   props: LabelHTMLAttributes<HTMLLabelElement>,

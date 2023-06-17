@@ -1,5 +1,5 @@
-import { forwardRef, type Ref, type InputHTMLAttributes } from 'react';
 import classNames from 'classnames';
+import { forwardRef, type Ref, type InputHTMLAttributes } from 'react';
 
 interface DropdownMenuInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: JSX.Element;

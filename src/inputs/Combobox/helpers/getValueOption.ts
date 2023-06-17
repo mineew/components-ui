@@ -1,5 +1,4 @@
 import { defaultGetOptionValue } from '../../../utils/SelectMenu';
-
 import { type ComboboxProps } from '../ComboboxProps';
 
 function getValueOption<T>(props: ComboboxProps<T>, value?: string) {

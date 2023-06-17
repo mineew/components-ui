@@ -1,14 +1,14 @@
+import classNames from 'classnames';
 import {
   type ElementType,
   type ComponentPropsWithoutRef,
   type ComponentPropsWithRef,
   forwardRef,
 } from 'react';
-import classNames from 'classnames';
 
-import InputWrapper from './InputWrapper';
 import InputIcon from './InputIcon';
 import InputToolbar, { type InputToolbarItem } from './InputToolbar';
+import InputWrapper from './InputWrapper';
 
 type InputCustomProps<T extends ElementType> = {
   as?: T;

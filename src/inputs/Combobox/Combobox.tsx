@@ -1,11 +1,11 @@
-import { type Ref, useId, useEffect, forwardRef } from 'react';
-import { useMachine, normalizeProps, Portal } from '@zag-js/react';
-import * as combobox from '@zag-js/combobox';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import * as combobox from '@zag-js/combobox';
+import { useMachine, normalizeProps, Portal } from '@zag-js/react';
+import { type Ref, useId, useEffect, forwardRef } from 'react';
 
-import Input, { type InputToolbarItem } from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
 import { SelectMenu, defaultGetOptionLabel } from '../../utils/SelectMenu';
+import Input, { type InputToolbarItem } from '../Input';
 
 import { type ComboboxProps } from './ComboboxProps';
 import getValueOption from './helpers/getValueOption';

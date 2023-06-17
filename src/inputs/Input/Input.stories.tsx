@@ -1,5 +1,4 @@
-import { type Meta, type StoryFn } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import {
   UserCircleIcon,
   AdjustmentsHorizontalIcon,
@@ -7,10 +6,12 @@ import {
   EllipsisHorizontalIcon,
   ClockIcon,
 } from '@heroicons/react/24/outline';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { action } from '@storybook/addon-actions';
+import { type Meta, type StoryFn } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 
 import Button from '../Button';
+
 import Input from './Input';
 
 export const Default: StoryFn<typeof Input> = ({

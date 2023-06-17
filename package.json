@@ -25,6 +25,7 @@
     "lint": "run-s lint:eslint lint:ts",
     "lint:eslint": "eslint .",
     "lint:ts": "tsc --noEmit",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.(t|j)s?(x)\"",
     "format:check": "prettier --check \"**/*.(t|j)s?(x)\"",
     "clear": "rimraf lib storybook-static",

@@ -1,4 +1,5 @@
 import { type SelectMenuProps } from '../SelectMenu';
+
 import defaultGetOptionLabel from './defaultGetOptionLabel';
 
 function filterOptions<T>(props: SelectMenuProps<T>) {

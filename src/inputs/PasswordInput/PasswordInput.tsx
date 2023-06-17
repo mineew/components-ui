@@ -1,10 +1,10 @@
+import { KeyIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import {
   type HTMLInputTypeAttribute,
   type Ref,
   forwardRef,
   useState,
 } from 'react';
-import { KeyIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 import Input, { type InputProps } from '../Input/Input';
 

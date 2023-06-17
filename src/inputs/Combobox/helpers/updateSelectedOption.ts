@@ -2,8 +2,8 @@ import {
   defaultGetOptionValue,
   defaultGetOptionLabel,
 } from '../../../utils/SelectMenu';
-
 import { type ComboboxProps, type ComboboxMachine } from '../ComboboxProps';
+
 import getValueOption from './getValueOption';
 
 function updateSelectedOption<T>(

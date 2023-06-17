@@ -2,8 +2,8 @@ import { type LiHTMLAttributes } from 'react';
 
 import * as DropdownMenu from '../../data-display/DropdownMenu';
 
-import defaultGetOptionValue from './helpers/defaultGetOptionValue';
 import defaultGetOptionLabel from './helpers/defaultGetOptionLabel';
+import defaultGetOptionValue from './helpers/defaultGetOptionValue';
 
 interface SelectListItemContext {
   index: number;

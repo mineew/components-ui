@@ -1,8 +1,9 @@
-import { type Meta, type StoryFn } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { type Meta, type StoryFn } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 
 import Button from '../Button';
+
 import Checkbox from './Checkbox';
 
 export const Default: StoryFn<typeof Checkbox> = ({

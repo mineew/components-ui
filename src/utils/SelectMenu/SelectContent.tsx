@@ -1,7 +1,8 @@
 import Placeholder from '../Placeholder/Placeholder';
+
 import { type SelectMenuProps } from './SelectMenu';
-import defaultGetOptionValue from './helpers/defaultGetOptionValue';
 import defaultGetOptionLabel from './helpers/defaultGetOptionLabel';
+import defaultGetOptionValue from './helpers/defaultGetOptionValue';
 
 interface SelectContentProps<T> extends SelectMenuProps<T> {
   placeholder?: string;

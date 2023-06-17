@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
   type InputHTMLAttributes,
   type ReactNode,
@@ -6,12 +7,11 @@ import {
   useContext,
   forwardRef,
 } from 'react';
-import classNames from 'classnames';
 
 import RadioControl from './RadioControl';
+import { RadioGroupContext } from './RadioGroup';
 import RadioIcon from './RadioIcon';
 import RadioLabel from './RadioLabel';
-import { RadioGroupContext } from './RadioGroup';
 
 interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;

@@ -3,8 +3,8 @@ import { type HTMLAttributes, type LabelHTMLAttributes, Fragment } from 'react';
 import * as DropdownMenu from '../../data-display/DropdownMenu';
 
 import SelectList, { type SelectListProps } from './SelectList';
-import filterOptions from './helpers/filterOptions';
 import buildSelectGroups from './helpers/buildSelectGroups';
+import filterOptions from './helpers/filterOptions';
 
 interface SelectMenuProps<T> extends SelectListProps<T> {
   query?: string;

@@ -1,11 +1,11 @@
-import { type Ref, useId, useEffect, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as select from '@zag-js/select';
 import classNames from 'classnames';
+import { type Ref, useId, useEffect, forwardRef } from 'react';
 
-import Input from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
 import { SelectMenu, SelectContent } from '../../utils/SelectMenu';
+import Input from '../Input';
 
 import { type SelectProps } from './SelectProps';
 import getSelectedOption from './helpers/getSelectedOption';

@@ -5,8 +5,8 @@ import {
   type LabelHTMLAttributes,
 } from 'react';
 
-import SelectMenu from './SelectMenu';
 import { type SelectListItemContext } from './SelectList';
+import SelectMenu from './SelectMenu';
 
 interface Color {
   code: string;

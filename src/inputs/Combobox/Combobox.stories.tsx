@@ -1,10 +1,11 @@
-import { type StoryFn, type Meta } from '@storybook/react';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { action } from '@storybook/addon-actions';
+import { type StoryFn, type Meta } from '@storybook/react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { TrashIcon } from '@heroicons/react/24/outline';
 
 import Button from '../Button';
+
 import Combobox from './Combobox';
 
 interface Color {

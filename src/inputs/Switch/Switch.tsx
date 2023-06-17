@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
   type InputHTMLAttributes,
   type ReactNode,
@@ -5,12 +6,11 @@ import {
   useId,
   forwardRef,
 } from 'react';
-import classNames from 'classnames';
 
-import SwitchControl from './SwitchControl';
 import SwitchCheck from './SwitchCheck';
-import SwitchThumb from './SwitchThumb';
+import SwitchControl from './SwitchControl';
 import SwitchLabel from './SwitchLabel';
+import SwitchThumb from './SwitchThumb';
 
 interface SwitchProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;

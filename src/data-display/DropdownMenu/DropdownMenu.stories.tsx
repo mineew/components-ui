@@ -1,6 +1,6 @@
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { type Meta, type StoryFn } from '@storybook/react';
 import { useState } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 import * as DropdownMenu from './';
 

@@ -1,6 +1,7 @@
 import { type Meta, type StoryFn } from '@storybook/react';
 
 import Button from '../../inputs/Button/Button';
+
 import Tooltip from './Tooltip';
 
 export const Default: StoryFn<typeof Tooltip> = ({ title }) => {

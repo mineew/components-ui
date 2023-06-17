@@ -1,5 +1,5 @@
-import { forwardRef, type ButtonHTMLAttributes, type Ref } from 'react';
 import classNames from 'classnames';
+import { forwardRef, type ButtonHTMLAttributes, type Ref } from 'react';
 
 import ButtonIcon from './ButtonIcon';
 import ButtonSpinner from './ButtonSpinner';

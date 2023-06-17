@@ -1,9 +1,9 @@
-import { type Meta, type StoryFn } from '@storybook/react';
 import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
+import { type Meta, type StoryFn } from '@storybook/react';
 
 import Button from './Button';
 

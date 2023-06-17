@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
   type InputHTMLAttributes,
   type ReactNode,
@@ -7,7 +8,6 @@ import {
   useEffect,
   forwardRef,
 } from 'react';
-import classNames from 'classnames';
 
 import CheckboxControl from './CheckboxControl';
 import CheckboxIcon from './CheckboxIcon';

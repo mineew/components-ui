@@ -1,7 +1,7 @@
-import { type HTMLProps, useId, cloneElement } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as tooltip from '@zag-js/tooltip';
 import classNames from 'classnames';
+import { type HTMLProps, useId, cloneElement } from 'react';
 
 interface TooltipProps {
   title: string;

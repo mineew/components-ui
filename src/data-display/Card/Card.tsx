@@ -1,11 +1,11 @@
-import { type ReactNode } from 'react';
 import classNames from 'classnames';
+import { type ReactNode } from 'react';
 
+import CardBody from './CardBody';
+import CardDescription from './CardDescription';
+import CardFooter from './CardFooter';
 import CardHeader from './CardHeader';
 import CardTitle from './CardTitle';
-import CardDescription from './CardDescription';
-import CardBody from './CardBody';
-import CardFooter from './CardFooter';
 
 interface CardProps {
   className?: string;
