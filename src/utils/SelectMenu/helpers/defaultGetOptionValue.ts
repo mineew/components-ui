@@ -5,6 +5,10 @@ function defaultGetOptionValue<T>(option: T) {
     value = (option as { code: unknown }).code;
   }
 
+  if ('id' in (option as object)) {
+    value = (option as { id: unknown }).id;
+  }
+
   if ('value' in (option as object)) {
     value = (option as { value: unknown }).value;
   }
