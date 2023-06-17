@@ -1,6 +1,6 @@
 import { type HTMLAttributes, type LabelHTMLAttributes, Fragment } from 'react';
 
-import * as DropdownMenu from '../../feedback/DropdownMenu';
+import * as DropdownMenu from '../../data-display/DropdownMenu';
 
 import SelectList, { type SelectListProps } from './SelectList';
 import filterOptions from './helpers/filterOptions';

@@ -1,6 +1,6 @@
 import { type LiHTMLAttributes } from 'react';
 
-import * as DropdownMenu from '../../feedback/DropdownMenu';
+import * as DropdownMenu from '../../data-display/DropdownMenu';
 
 import defaultGetOptionValue from './helpers/defaultGetOptionValue';
 import defaultGetOptionLabel from './helpers/defaultGetOptionLabel';

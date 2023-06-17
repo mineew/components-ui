@@ -128,5 +128,5 @@ export const WithInput: StoryFn = () => {
 };
 
 export default {
-  title: 'Feedback/DropdownMenu',
+  title: 'Data Display/DropdownMenu',
 } as Meta;
