@@ -1,25 +1,25 @@
-import { type Ref, useId, useState, forwardRef } from 'react';
+import { type Ref, useId, useEffect, forwardRef } from 'react';
 import { useMachine, normalizeProps, Portal } from '@zag-js/react';
 import * as combobox from '@zag-js/combobox';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Input, { type InputToolbarItem } from '../Input';
 import SelectIndicator from '../../utils/SelectIndicator';
-import { SelectMenu } from '../../utils/SelectMenu';
+import { SelectMenu, defaultGetOptionLabel } from '../../utils/SelectMenu';
 
 import { type ComboboxProps } from './ComboboxProps';
+import getValueOption from './helpers/getValueOption';
+import updateSelectedOption from './helpers/updateSelectedOption';
 
 function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
   const {
-    options,
-    getOptionValue,
-    getOptionLabel,
+    getOptionLabel = defaultGetOptionLabel,
+    value,
+    onChange,
     placeholder,
     disabled,
     invalid,
   } = props;
-
-  const [query, setQuery] = useState('');
 
   const [state, send] = useMachine(
     combobox.machine({
@@ -32,31 +32,19 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
     {
       context: {
         onOpen() {
-          setQuery('');
+          api.setInputValue('');
         },
-        onInputChange({ value }) {
-          setQuery(value);
-        },
-        onSelect({ label }) {
+        onSelect({ value, label }) {
           if (label) {
             api.setInputValue(label);
-            setQuery(label);
+            onChange?.(value, getValueOption(props, value));
           }
         },
         onClose() {
-          if (api.selectedValue) {
-            const selectedOption = options.find(
-              (option) => getOptionValue?.(option) === api.selectedValue,
-            );
+          const selectedOption = getValueOption(props, api.selectedValue);
 
-            const selectedOptionLabel = selectedOption
-              ? getOptionLabel?.(selectedOption)
-              : '';
-
-            if (selectedOptionLabel) {
-              api.setInputValue(selectedOptionLabel);
-              setQuery(selectedOptionLabel);
-            }
+          if (selectedOption) {
+            api.setInputValue(getOptionLabel(selectedOption));
           }
         },
         placeholder,
@@ -67,6 +55,11 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
   );
 
   const api = combobox.connect(state, send, normalizeProps);
+
+  useEffect(() => {
+    updateSelectedOption(props, api, value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const toolbar: InputToolbarItem[] = [
     {
@@ -82,6 +75,10 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
       key: 'clear',
       icon: <XMarkIcon />,
       hidden: false,
+      onPointerDown: () => {
+        api.clearValue();
+        onChange?.();
+      },
     });
   }
 
@@ -103,7 +100,7 @@ function Combobox<T>(props: ComboboxProps<T>, ref: Ref<HTMLInputElement>) {
         <div {...api.positionerProps}>
           <SelectMenu
             {...props}
-            query={query}
+            query={api.inputValue}
             selectedValue={api.selectedValue}
             activeValue={api.focusedOption?.value}
             getMenuProps={() => {

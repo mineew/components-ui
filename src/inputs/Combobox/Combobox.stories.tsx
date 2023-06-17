@@ -1,5 +1,10 @@
 import { type StoryFn, type Meta } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
+import Button from '../Button';
 import Combobox from './Combobox';
 
 interface Color {
@@ -71,6 +76,125 @@ export const Default: StoryFn<typeof Combobox> = ({
         invalid={invalid}
         notFoundMessage="Nothing found"
       />
+    </div>
+  );
+};
+
+export const Controlled: StoryFn<typeof Combobox> = ({
+  placeholder,
+  disabled,
+  invalid,
+}) => {
+  const [value, setValue] = useState('#9932CC');
+
+  return (
+    <div style={{ padding: 20, width: 400 }}>
+      <div style={{ marginBottom: 10 }}>
+        <Combobox
+          value={value}
+          onChange={(value) => {
+            setValue(value || '');
+          }}
+          placeholder={placeholder}
+          options={options}
+          getOptionValue={getOptionValue}
+          getOptionLabel={getOptionLabel}
+          disabled={disabled}
+          invalid={invalid}
+          notFoundMessage="Nothing found"
+        />
+      </div>
+
+      <div style={{ marginBottom: 10 }}>
+        Current Value:{' '}
+        {!value ? (
+          '–'
+        ) : (
+          <>
+            {value}, {colors.find((c) => c.code === value)?.name || ''}
+          </>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', gap: 10 }}>
+        <Button
+          type="button"
+          theme="primary"
+          onClick={() => setValue('#1E90FF')}
+        >
+          Use Dodger Blue
+        </Button>
+
+        <Button
+          type="button"
+          theme="danger"
+          icon={<TrashIcon />}
+          onClick={() => setValue('')}
+        >
+          Clear
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export const ReactHookForm = () => {
+  type FormValues = { comboboxRequired: string; comboboxOptional: string };
+  const { control, setValue, handleSubmit } = useForm<FormValues>({
+    defaultValues: { comboboxOptional: '#483D8B' },
+  });
+
+  return (
+    <div style={{ padding: 20, width: 400 }}>
+      <form onSubmit={handleSubmit(action('onSubmit'))}>
+        <div style={{ marginBottom: 10 }}>
+          <Controller
+            control={control}
+            name="comboboxRequired"
+            rules={{ required: true }}
+            render={({ field, fieldState, formState }) => (
+              <Combobox
+                ref={field.ref}
+                placeholder="Required Combobox Field"
+                value={field.value}
+                onChange={(value) => {
+                  setValue('comboboxRequired', value || '', {
+                    shouldValidate: formState.isSubmitted,
+                  });
+                }}
+                options={options}
+                getOptionValue={getOptionValue}
+                getOptionLabel={getOptionLabel}
+                invalid={fieldState.invalid}
+              />
+            )}
+          />
+        </div>
+
+        <div style={{ marginBottom: 10 }}>
+          <Controller
+            control={control}
+            name="comboboxOptional"
+            render={({ field }) => (
+              <Combobox
+                ref={field.ref}
+                placeholder="Optional Combobox Field"
+                value={field.value}
+                onChange={(value) => {
+                  setValue('comboboxOptional', value || '');
+                }}
+                options={options}
+                getOptionValue={getOptionValue}
+                getOptionLabel={getOptionLabel}
+              />
+            )}
+          />
+        </div>
+
+        <Button type="submit" theme="primary">
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
