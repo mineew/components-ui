@@ -13,6 +13,7 @@ function Tag(props: TagProps, ref: Ref<HTMLSpanElement>) {
   classes.push('px-2', 'py-1', 'rounded-md');
   classes.push('text-xs', 'font-medium');
   classes.push('bg-slate-200');
+  classes.push('transition');
 
   if (active) {
     classes.push('bg-slate-800');
