@@ -47,6 +47,7 @@ module.exports = {
       rules: {
         'react/prop-types': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/await-thenable': 'off',
       },
     },
   ],

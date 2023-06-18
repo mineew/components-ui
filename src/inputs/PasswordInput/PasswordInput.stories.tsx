@@ -1,5 +1,7 @@
 import { action } from '@storybook/addon-actions';
-import { type Meta, type StoryFn } from '@storybook/react';
+import { expect } from '@storybook/jest';
+import { type Meta, type StoryFn, type StoryObj } from '@storybook/react';
+import { within } from '@storybook/testing-library';
 import { useForm } from 'react-hook-form';
 
 import Button from '../Button';
@@ -48,6 +50,25 @@ export const ReactHookForm = () => {
       </form>
     </div>
   );
+};
+
+export const TestCase: StoryObj<typeof PasswordInput> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    await expect(button).toBeInTheDocument();
+  },
+
+  decorators: [
+    (Story) => {
+      return (
+        <div style={{ padding: 20, maxWidth: 400 }}>
+          <Story />
+        </div>
+      );
+    },
+  ],
 };
 
 export default {
