@@ -95,12 +95,13 @@ function InputToolbar(props: InputToolbarProps) {
       }}
     >
       {items.map((item, index) => {
+        const { key, icon, tooltip, ...itemProps } = item;
         const actualDisabled = disabled || item.disabled;
 
         const button = (
           <button
-            key={item.key || `item-${index}`}
-            {...item}
+            key={key || `item-${index}`}
+            {...itemProps}
             className={classNames(itemClasses, item.className)}
             type="button"
             disabled={actualDisabled}
@@ -114,12 +115,12 @@ function InputToolbar(props: InputToolbarProps) {
               item.onKeyUp?.(e);
             }}
           >
-            <div className="w-5">{item.icon}</div>
+            <div className="w-5">{icon}</div>
           </button>
         );
 
-        return !!item.tooltip && !actualDisabled ? (
-          <Tooltip key={item.key || `item-${index}`} title={item.tooltip}>
+        return !!tooltip && !actualDisabled ? (
+          <Tooltip key={key || `item-${index}`} title={tooltip}>
             {button}
           </Tooltip>
         ) : (
