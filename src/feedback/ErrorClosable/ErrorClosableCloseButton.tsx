@@ -1,15 +1,12 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 
-import Tooltip from '../Tooltip/Tooltip';
-
 interface ErrorClosableCloseButtonProps {
-  tooltip?: string;
   onClick: () => void;
 }
 
 function ErrorClosableCloseButton(props: ErrorClosableCloseButtonProps) {
-  const { tooltip = 'Закрыть', onClick } = props;
+  const { onClick } = props;
 
   const classes = [];
 
@@ -22,11 +19,9 @@ function ErrorClosableCloseButton(props: ErrorClosableCloseButtonProps) {
   classes.push('transition');
 
   return (
-    <Tooltip title={tooltip}>
-      <button className={classNames(classes)} type="button" onClick={onClick}>
-        <XMarkIcon className={classNames('w-5', 'h-5')} strokeWidth={2} />
-      </button>
-    </Tooltip>
+    <button className={classNames(classes)} type="button" onClick={onClick}>
+      <XMarkIcon className={classNames('w-5', 'h-5')} strokeWidth={2} />
+    </button>
   );
 }
 

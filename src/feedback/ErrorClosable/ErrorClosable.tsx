@@ -4,12 +4,11 @@ import ErrorClosableCloseButton from './ErrorClosableCloseButton';
 
 interface ErrorClosableProps {
   message: string;
-  closeButtonTooltip?: string;
   onClose: () => void;
 }
 
 function ErrorClosable(props: ErrorClosableProps) {
-  const { closeButtonTooltip, message, onClose } = props;
+  const { message, onClose } = props;
 
   const classes = [];
 
@@ -22,10 +21,7 @@ function ErrorClosable(props: ErrorClosableProps) {
   return message ? (
     <div className={classNames(classes)}>
       <div>{message}</div>
-      <ErrorClosableCloseButton
-        tooltip={closeButtonTooltip}
-        onClick={onClose}
-      />
+      <ErrorClosableCloseButton onClick={onClose} />
     </div>
   ) : null;
 }
