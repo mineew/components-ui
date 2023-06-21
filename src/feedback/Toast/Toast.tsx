@@ -22,6 +22,7 @@ function Toast(props: ToastProps, ref: Ref<HTMLDivElement>) {
   } = props;
 
   const classes = [];
+  const contentClasses = [];
 
   classes.push('flex');
   classes.push('pl-4', 'pr-3', 'py-3', 'rounded-md');
@@ -55,10 +56,12 @@ function Toast(props: ToastProps, ref: Ref<HTMLDivElement>) {
     classes.push('shadow-red-100');
   }
 
+  contentClasses.push('max-w-[200px]');
+
   return (
     <div ref={ref} className={classNames(classes, className)} {...otherProps}>
       <ToastIcon toastType={toastType} icon={icon} />
-      <div>{children}</div>
+      <div className={classNames(contentClasses)}>{children}</div>
       <ToastCloseButton toastType={toastType} onClick={onClose} />
     </div>
   );
