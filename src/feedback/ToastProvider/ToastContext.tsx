@@ -6,3 +6,4 @@ type ToastGroupMachine = ReturnType<typeof toast.group.connect>;
 const ToastContext = createContext<ToastGroupMachine | null>(null);
 
 export default ToastContext;
+export type { ToastGroupMachine };
