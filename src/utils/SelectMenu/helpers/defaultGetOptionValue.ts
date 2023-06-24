@@ -1,6 +1,10 @@
 function defaultGetOptionValue<T>(option: T) {
   let value: unknown = option;
 
+  if (typeof value === 'string') {
+    return value;
+  }
+
   if ('code' in (option as object)) {
     value = (option as { code: unknown }).code;
   }
@@ -11,10 +15,6 @@ function defaultGetOptionValue<T>(option: T) {
 
   if ('value' in (option as object)) {
     value = (option as { value: unknown }).value;
-  }
-
-  if (typeof value === 'string') {
-    return value;
   }
 
   return (value as string) + '';

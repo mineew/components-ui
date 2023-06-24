@@ -1,6 +1,10 @@
 function defaultGetOptionLabel<T>(option: T) {
   let label: unknown = option;
 
+  if (typeof label === 'string') {
+    return label;
+  }
+
   if ('name' in (option as object)) {
     label = (option as { name: unknown }).name;
   }
@@ -11,10 +15,6 @@ function defaultGetOptionLabel<T>(option: T) {
 
   if ('label' in (option as object)) {
     label = (option as { label: unknown }).label;
-  }
-
-  if (typeof label === 'string') {
-    return label;
   }
 
   return (label as string) + '';
