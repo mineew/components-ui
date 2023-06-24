@@ -1,68 +1,89 @@
 import { type Meta, type StoryFn } from '@storybook/react';
+import { type Placement } from '@zag-js/toast';
+import { useState } from 'react';
 
 import Button from '../../inputs/Button';
+import Select from '../../inputs/Select';
+import { type ToastType } from '../Toast/ToastType';
 
 import ToastProvider from './ToastProvider';
 import useToast from './useToast';
 
 export const Default: StoryFn = () => {
+  const [type, setType] = useState<ToastType>('info');
+  const [placement, setPlacement] = useState<Placement>('top-start');
   const toast = useToast();
 
-  const createInfoToast = () =>
-    toast.create({
-      type: 'info',
-      title: 'Information',
-      description:
-        'Bugs have been fixed in version 1.3.18. Please reload the page',
-      placement: 'top-start',
-    });
+  const types: ToastType[] = ['custom', 'error', 'info', 'loading', 'success'];
+  const placements: Placement[] = [
+    'bottom',
+    'bottom-end',
+    'bottom-start',
+    'top',
+    'top-end',
+    'top-start',
+  ];
 
-  const createSuccessToast = () =>
-    toast.create({
-      type: 'success',
-      title: 'Success',
-      description: 'File upload completed successfully',
-      placement: 'top-end',
-    });
+  const titles: Record<ToastType, string> = {
+    info: 'Information',
+    success: 'Success',
+    loading: 'Loading...',
+    error: 'Error',
+    custom: 'Custom Toast Title',
+  };
 
-  const createLoadingToast = () =>
-    toast.create({
-      type: 'loading',
-      title: 'Loading...',
-      description: 'File upload in progress',
-      placement: 'bottom-end',
-    });
+  const descriptions: Record<ToastType, string> = {
+    info: 'Bugs have been fixed in version 1.3.18. Please reload the page',
+    success: 'File upload completed successfully',
+    loading: 'File upload in progress',
+    error: 'Failed to upload file',
+    custom: 'Custom Toast Description',
+  };
 
-  const createErrorToast = () =>
+  const createToast = () =>
     toast.create({
-      type: 'error',
-      title: 'Error',
-      description: 'Failed to upload file',
-      placement: 'bottom-end',
+      type,
+      placement,
+      title: titles[type],
+      description: descriptions[type],
     });
 
   return (
     <div
       style={{
-        padding: 20,
-        width: 300,
-        margin: '0 auto',
+        height: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        gap: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Button onClick={createInfoToast}>Create Info Toast</Button>
-      <Button theme="primary" onClick={createSuccessToast}>
-        Create Success Toast
-      </Button>
-      <Button onClick={createLoadingToast} loading>
-        Create Loading Toast
-      </Button>
-      <Button theme="danger" onClick={createErrorToast}>
-        Create Error Toast
-      </Button>
+      <div style={{ width: 300 }}>
+        <div style={{ marginBottom: 20 }}>
+          <Select
+            options={types}
+            value={type}
+            onChange={(_, type) => {
+              if (type) {
+                setType(type);
+              }
+            }}
+          />
+        </div>
+        <div style={{ marginBottom: 20 }}>
+          <Select
+            options={placements}
+            value={placement}
+            onChange={(_, placement) => {
+              if (placement) {
+                setPlacement(placement);
+              }
+            }}
+          />
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Button onClick={createToast}>Create Toast</Button>
+        </div>
+      </div>
     </div>
   );
 };
