@@ -14,7 +14,6 @@ function TagCloseButton(props: TagCloseButton, ref: Ref<HTMLButtonElement>) {
   classes.push('hover:bg-white/50');
   classes.push('focus:bg-white/50');
   classes.push('active:bg-transparent');
-  classes.push('transition');
 
   return (
     <button
