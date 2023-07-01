@@ -41,12 +41,12 @@
   "dependencies": {
     "@heroicons/react": "2.0.18",
     "@react-spring/web": "9.7.3",
-    "@zag-js/combobox": "0.10.2",
-    "@zag-js/react": "0.10.2",
-    "@zag-js/select": "0.10.2",
-    "@zag-js/tags-input": "0.10.2",
-    "@zag-js/toast": "0.10.2",
-    "@zag-js/tooltip": "0.10.2",
+    "@zag-js/combobox": "0.10.3",
+    "@zag-js/react": "0.10.3",
+    "@zag-js/select": "0.10.3",
+    "@zag-js/tags-input": "0.10.3",
+    "@zag-js/toast": "0.10.3",
+    "@zag-js/tooltip": "0.10.3",
     "classnames": "2.3.2"
   },
   "peerDependencies": {
@@ -74,7 +74,7 @@
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
     "autoprefixer": "10.4.14",
-    "eslint": "8.43.0",
+    "eslint": "8.44.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-import-resolver-typescript": "3.5.5",
     "eslint-plugin-import": "2.27.5",
